@@ -46,7 +46,7 @@ class _DicceRollerState extends State<DiceRoller> {
               fontSize: 28,
             ),
           ),
-          child: const Text('ROLL 다이스'),
+          child: const Text('Touch'),
         )
       ],
     );
