@@ -6,6 +6,7 @@ class AnswerButton extends StatelessWidget {
     required this.answerText,
     required this.onTap,
   });
+  
   final String answerText;
   final void Function() onTap;
 
@@ -24,7 +25,7 @@ class AnswerButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(40),
         ),
       ),
-      child: Text(answerText),
+      child: Text(answerText, textAlign: TextAlign.center,),
     );
   }
 }

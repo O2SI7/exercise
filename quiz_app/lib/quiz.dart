@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/questions_screen.dart';
+
 import 'package:quiz_app/start_screen.dart';
+import 'package:quiz_app/questions_screen.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/results_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -12,13 +15,31 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  var activeScreen = 'start-screen';
+   List<String> _selectedAnswers = [];
+  String _activeScreen = 'start-screen';
 
   void switchScreen() {
     setState(() {
-      activeScreen = 'questions-screen';
+      _activeScreen = 'questions-screen';
     });
   }
+
+  void chooseAnswer(String answer) {
+    _selectedAnswers.add(answer);
+
+    if (_selectedAnswers.length == questions.length) {
+      setState(() {
+        _activeScreen = 'results-screen';
+      });
+    }
+  }
+  void restartQuiz() {
+    setState(() {
+      _selectedAnswers = [];
+      _activeScreen = 'questions-screen';
+    });
+  }
+  
   // Widget? activeScreen ;
   // @override
   // void initState() {
@@ -27,10 +48,19 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    Widget screenWidhet = StartScreen(switchScreen);
+    Widget screenWidget = StartScreen(switchScreen);
 
-    if (activeScreen == 'questions-screen') {
-      screenWidhet = const QuestionsScreen();
+    if (_activeScreen == 'questions-screen') {
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      
+      );
+    }
+    if (_activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: _selectedAnswers,
+        onRestart: restartQuiz,
+      );
     }
 
     return MaterialApp(
@@ -46,7 +76,7 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: screenWidhet,
+          child: screenWidget,
         ),
       ),
     );
