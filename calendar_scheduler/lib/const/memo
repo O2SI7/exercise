@@ -1,0 +1,75 @@
+//home_Screen ListView()
+
+
+
+
+children: Schedules.containsKey(selectedDay)
+                      ? Schedules[selectedDay]!
+                          .map(
+                            (e) => ScheduleCard(
+                              startTime: e.startTime,
+                              endTime: e.endTime,
+                              content: e.content,
+                              color: Color(
+                                int.parse(
+                                  'FF${e.color}',
+                                  radix: 16,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList()
+                      : [],
+
+
+                      ListView.builder(
+                  itemCount: Schedules.containsKey(selectedDay)
+                      ? Schedules[selectedDay]!.length
+                      : 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    ///선택된 날짜에 해당되는 일정 리스트로 저장
+                    ///List<Schedule>
+                    final selectedSchedules = Schedules[selectedDay]!;
+                    final scheduleModel = selectedSchedules[index];
+
+                    return ScheduleCard(
+                      startTime: scheduleModel.startTime,
+                      endTime: scheduleModel.endTime,
+                      content: scheduleModel.content,
+                      color: Color(
+                        int.parse(
+                          'FF${scheduleModel.color}',
+                          radix: 16,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
+
+                ListView.separated(
+                  itemCount: Schedules.containsKey(selectedDay)
+                      ? Schedules[selectedDay]!.length
+                      : 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    ///선택된 날짜에 해당되는 일정 리스트로 저장
+                    ///List<Schedule>
+                    final selectedSchedules = Schedules[selectedDay]!;
+                    final scheduleModel = selectedSchedules[index];
+
+                    return ScheduleCard(
+                      startTime: scheduleModel.startTime,
+                      endTime: scheduleModel.endTime,
+                      content: scheduleModel.content,
+                      color: Color(
+                        int.parse(
+                          'FF${scheduleModel.color}',
+                          radix: 16,
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index){
+                    return SizedBox(height: 8);
+                  },
+                ),
