@@ -1,9 +1,18 @@
 import 'package:calendar_scheduler/component/custom_text_field.dart';
 import 'package:calendar_scheduler/const/color.dart';
+import 'package:calendar_scheduler/datebase/drift.dart';
+import 'package:calendar_scheduler/model/schedule.dart';
+import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class ScheduleBottomSheet extends StatefulWidget {
-  const ScheduleBottomSheet({super.key});
+  final DateTime selectedDay;
+
+  const ScheduleBottomSheet({
+    super.key,
+    required this.selectedDay,
+  });
 
   @override
   State<ScheduleBottomSheet> createState() => _ScheduleBottomSheetState();
@@ -15,7 +24,6 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
   int? startTime;
   int? endTime;
   String? content;
-  String? category;
 
   String selectedColor = categoryColors.first;
 
@@ -131,17 +139,39 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
     return null;
   }
 
-  void onSavepressed() {
+  void onSavepressed()  async {
     final isValidd = formKey.currentState!.validate();
 
     if (isValidd) {
       formKey.currentState!.save();
 
-      print('----------------------');
-      print(startTime);
-      print(endTime);
-      print(content);
-      print(category);
+      GetIt.I<AppDatabase>();
+
+      final database = GetIt.I<AppDatabase>();
+
+      await database.createSchedule(
+        ScheduleTableCompanion(
+          startTime: Value(startTime!),
+          endTime: Value(endTime!),
+          content: Value(content!),
+          color: Value(selectedColor),
+          date: Value(widget.selectedDay),
+
+        ),
+      );
+
+      // final schedule = ScheduleTable(
+      //   id: 999,
+      //   startTime: startTime!,
+      //   endTime: endTime!,
+      //   content: content!,
+      //   color: selectedColor,
+      //   date: widget.selectedDay,
+      //   createdAt: DateTime.now().toUtc(),
+      // );
+      
+      Navigator.of(context).pop();
+
     }
   }
 }
