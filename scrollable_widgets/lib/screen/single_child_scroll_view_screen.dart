@@ -23,7 +23,7 @@ class SingleChildScrollViewScreen extends StatelessWidget {
   Widget renderSimple() {
     return SingleChildScrollView(
       child: Column(
-        children: raindowColors
+        children: rainbowColors
             .map(
               (e) => renderContainer(color: e),
             )
@@ -68,7 +68,7 @@ class SingleChildScrollViewScreen extends StatelessWidget {
       //ClampingScrollPhysics - android 스타일
       physics: ClampingScrollPhysics(),
       child: Column(
-        children: raindowColors
+        children: rainbowColors
             .map(
               (e) => renderContainer(color: e),
             )
@@ -83,7 +83,7 @@ class SingleChildScrollViewScreen extends StatelessWidget {
           children: numbers
               .map(
                 (e) => renderContainer(
-                  color: raindowColors[e % raindowColors.length],
+                  color: rainbowColors[e % rainbowColors.length],
                   index: e,
                 ),
               )

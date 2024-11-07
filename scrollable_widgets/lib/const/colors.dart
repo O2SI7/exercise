@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const raindowColors = [
+const rainbowColors = [
   Colors.red,
   Colors.orange,
   Colors.yellow,

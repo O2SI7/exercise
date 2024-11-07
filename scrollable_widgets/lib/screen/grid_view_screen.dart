@@ -24,7 +24,7 @@ class GridViewScreen extends StatelessWidget {
       children: numbers
           .map(
             (e) => renderContainer(
-              color: raindowColors[e % raindowColors.length],
+              color: rainbowColors[e % rainbowColors.length],
               index: e,
             ),
           )
@@ -42,7 +42,7 @@ class GridViewScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return renderContainer(
-            color: raindowColors[index % raindowColors.length],
+            color: rainbowColors[index % rainbowColors.length],
             index: index,
           );
         },
@@ -57,7 +57,7 @@ class GridViewScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return renderContainer(
-            color: raindowColors[index % raindowColors.length],
+            color: rainbowColors[index % rainbowColors.length],
             index: index,
           );
         },

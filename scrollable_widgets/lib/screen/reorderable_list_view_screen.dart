@@ -20,7 +20,7 @@ class _ReorderableListViewScreenState extends State<ReorderableListViewScreen> {
       body: ReorderableListView.builder(
         itemBuilder: (context, index) {
           return renderContainer(
-            color: raindowColors[numbers[index] % raindowColors.length],
+            color: rainbowColors[numbers[index] % rainbowColors.length],
             index: numbers[index],
           );
         },
@@ -56,7 +56,7 @@ class _ReorderableListViewScreenState extends State<ReorderableListViewScreen> {
       children: numbers
           .map(
             (e) => renderContainer(
-              color: raindowColors[e % raindowColors.length],
+              color: rainbowColors[e % rainbowColors.length],
               index: e,
             ),
           )
