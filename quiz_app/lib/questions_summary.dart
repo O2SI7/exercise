@@ -25,7 +25,6 @@ class QuestionsSummary extends StatelessWidget {
                         ),
                         Text(data['user_answer'] as String),
                         Text(data['correct_answer'] as String),
-                        
                       ],
                     ),
                   )
