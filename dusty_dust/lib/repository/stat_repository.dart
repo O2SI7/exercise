@@ -4,11 +4,35 @@ import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
 
 class StatRepository {
-  static Future<List<StatModel>> fetchData({
+  static Future<void> fetchData() async {
+    final isar = GetIt.I<Isar>();
+
+    final now = DateTime.now();
+    final compareDateTimeTarget = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      now.hour,
+    );
+
+    final count = await isar.statModels
+        .filter()
+        .dateTimeEqualTo(compareDateTimeTarget)
+        .count();
+
+      if (count > 0) {
+        print('데이터가 존재합니다 : count: $count');
+        return;
+      }
+
+    for (ItemCode itemCode in ItemCode.values) {
+      await fetchDataByItemcode(itemCode: itemCode);
+    }
+  }
+
+  static Future<List<StatModel>> fetchDataByItemcode({
     required ItemCode itemCode,
   }) async {
-    final itemCodeStr = itemCode == ItemCode.PM25 ? 'PM2.5' : itemCode.name;
-
     final response = await Dio().get(
       'http://apis.data.go.kr/B552584/ArpltnStatsSvc/getCtprvnMesureLIst',
       queryParameters: {
@@ -17,7 +41,7 @@ class StatRepository {
         'returnType': 'json',
         'numOfRows': 100,
         'pageNo': 1,
-        'itemCode': itemCodeStr,
+        'itemCode': itemCode.name,
         'dataGubun': 'HOUR',
         'searchCondition': 'WEEK',
       },
@@ -34,40 +58,40 @@ class StatRepository {
     ];
 
     for (Map<String, dynamic> item in rawItemList) {
-      final dateTime = item['dataTime'];
+      final dateTime = DateTime.parse(item['dataTime']);
 
       for (String key in item.keys) {
         if (skipKeys.contains(key)) {
           continue;
         }
         final regionStr = key;
-        final stat = item['regionStr'];
+        final stat = double.parse(item[regionStr]);
+        final region = Region.values.firstWhere((e) => e.name == regionStr);
 
         final statModel = StatModel()
-          ..region = Region.values.firstWhere((e) => e.name == regionStr)
-          ..stat = double.parse(stat)
-          ..dateTime = DateTime.parse(dateTime)
+          ..region = region
+          ..stat = stat
+          ..dateTime = (dateTime)
           ..itemCode = itemCode;
 
         final isar = GetIt.I<Isar>();
+
+        final count = await isar.statModels
+            .filter()
+            .regionEqualTo(region)
+            .dateTimeEqualTo(dateTime)
+            .itemCodeEqualTo(itemCode)
+            .count();
+
+        if (count > 0) {
+          continue;
+        }
 
         await isar.writeTxn(
           () async {
             await isar.statModels.put(statModel);
           },
         );
-
-        // stats = [
-        //   ...stats,
-        //   StatModel(
-        //     // 키 값이 대구 -> 이런식으로 쓴다. (값을 넣어준다)
-        //     //key: 'daegu' -> Region.daegu
-        //     region: Region.values.firstWhere((e) => e.name == regionStr),
-        //     stat: double.parse(stat),
-        //     dateTime: DateTime.parse(dateTime),
-        //     itemCode: itemCode,
-        //   )
-        // ];
       }
     }
 
