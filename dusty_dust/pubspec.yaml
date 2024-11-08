@@ -37,9 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.1.2
   get_it: ^7.6.8
+  isar_flutter_libs:
+      git: 
+        url: https://github.com/MrLittleWhite/isar_flutter_libs.git
 
 dev_dependencies:
   flutter_test:
