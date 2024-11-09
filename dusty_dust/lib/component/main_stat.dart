@@ -1,11 +1,18 @@
+import 'package:dusty_dust/const/status_level.dart';
 import 'package:dusty_dust/model/stat_model.dart';
 import 'package:dusty_dust/utills/date_utills.dart';
+import 'package:dusty_dust/utills/status_utills.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
 
 class MainStat extends StatelessWidget {
-  const MainStat({super.key});
+  final Region region;
+
+  const MainStat({
+    super.key,
+    required this.region,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +28,9 @@ class MainStat extends StatelessWidget {
             future: GetIt.I<Isar>()
                 .statModels
                 .filter()
-                .regionEqualTo(Region.seoul)
+                .regionEqualTo(region)
                 .itemCodeEqualTo(ItemCode.PM10)
+                .sortByDateTimeDesc()
                 .findFirst(),
             builder: (context, snapshot) {
               if (!snapshot.hasData &&
@@ -38,6 +46,10 @@ class MainStat extends StatelessWidget {
 
               final statModel = snapshot.data!;
 
+              final status = StatusUtills.getStatusModelFromStat(
+                statModel: statModel,
+              );
+
               return Column(
                 children: [
                   Text(
@@ -52,16 +64,16 @@ class MainStat extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Image.asset(
-                    'asset/img/good.png',
+                    status.imagePath,
                     width: MediaQuery.of(context).size.width / 2,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    '보통',
+                    status.label,
                     style: ts.copyWith(fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    '나쁘지 않네요!',
+                    status.comment,
                     style: ts.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,

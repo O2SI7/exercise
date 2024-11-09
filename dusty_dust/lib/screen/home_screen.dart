@@ -16,17 +16,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Region region = Region.seoul;
 
   @override
   void initState() {
     super.initState();
 
-  
     StatRepository.fetchData();
     getCount();
   }
 
-  getCount()async{
+  getCount() async {
     print(await GetIt.I<Isar>().statModels.count());
   }
 
@@ -37,8 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MainStat(),
-            CategoryStat(),
+            MainStat(
+              region: region,
+            ),
+            CategoryStat(
+              region: region,
+            ),
             HourlyStat(),
           ],
         ),
