@@ -1,6 +1,4 @@
-import 'package:dusty_dust/const/color.dart';
 import 'package:dusty_dust/model/stat_model.dart';
-import 'package:dusty_dust/model/status_model.dart';
 import 'package:dusty_dust/utills/status_utills.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -8,7 +6,15 @@ import 'package:isar/isar.dart';
 
 class CategoryStat extends StatelessWidget {
   final Region region;
-  const CategoryStat({super.key, required this.region});
+  final Color darkColor;
+  final Color lightColor;
+  
+  const CategoryStat({
+    super.key,
+    required this.region,
+    required this.darkColor,
+    required this.lightColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +84,11 @@ class CategoryStat extends StatelessWidget {
                                     return Container();
                                   }
 
-                                  final StatModel= snapshot.data!;
-                                  final StatusModel = StatusUtills.getStatusModelFromStat(statModel:StatModel, );
+                                  final StatModel = snapshot.data!;
+                                  final StatusModel =
+                                      StatusUtills.getStatusModelFromStat(
+                                    statModel: StatModel,
+                                  );
 
                                   return SizedBox(
                                     width: constraint.maxWidth / 3,
