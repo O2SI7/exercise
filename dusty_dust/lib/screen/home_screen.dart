@@ -96,12 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            backgroundColor: statusModel.primaryColor,
             body: CustomScrollView(
               controller: scrollController,
               slivers: [
                 MainStat(
                   region: region,
-                  primaryColor: primaryColor,
+                  primaryColor: statusModel.primaryColor,
                   isExpanded:  isExpanded,
                 ),
                 SliverToBoxAdapter(
