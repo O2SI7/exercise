@@ -8,7 +8,7 @@
 PRODUCT_NAME = actual
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.actual
+PRODUCT_BUNDLE_IDENTIFIER = com.login.app
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.

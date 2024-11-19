@@ -2,8 +2,15 @@ import 'package:actual/common/component/custom_text_form_field.dart';
 import 'package:actual/common/const/colors.dart';
 import 'package:actual/common/layout/default_layout.dart';
 import 'package:actual/common/view/root_tap.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:dio/dio.dart;
+
+final users = {
+  'jose1234':'123123',
+  'o2si':'abcd1234',
+};
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,8 +20,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // String username ='';
-  // String password ='';
+  String username ='';
+  String password ='';
 
 
 
@@ -22,13 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     
-
+    //final _authentication = FirebaseAuth.instance;
 
     // Dio를 두번 쓰기 때문에 따로 선언하기
     //final dio =Dio(); 디오패키지 불러올수있다
-
+    
     //local host
-    //final emulatorIp='10.0.2.2:3000'; 에뮬레이터 기본 아이피
+    //final emulatorIp='10.0.2.2:3000'; //에뮬레이터 기본 아이피
     //final simulatorIp='127.0.01:3000'; 시뮬레이터 기본아이피
 
     //final ip =Platform.isAndroid ? emulatorIp : simulatorIp; 
@@ -54,14 +61,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomTextFormField(
                   hintText: '이메일을 입력해주세요.',
                   onChanged: (String value) {
-                    //username = value;
+                    
+                    username = value;
+
                   },
                 ),
                 const SizedBox(height: 20),
                 CustomTextFormField(
                   hintText: '비밀번호를 입력해주세요.',
                   onChanged: (String value) {
-                    //password = value;
+                    password = value;
 
                   },
                   obscureText: true,
@@ -94,7 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     //storage.write(key:ACCESS_TOKEN ,Value:accessToken);
 
                     //https://pub.dev/packages/flutter_secure_storage 패키지가 있다.강의에선 5.0.2 버전이였음.
-
+                    
+                    print(users);
+                    
+                    
                     Navigator.of(context).push(MaterialPageRoute(builder: (_)=> RootTap(),),);
                     //print(resp.data); 하게되면 리프레쉬토큰 액세스토큰도 발급 된 것을 아랐씀니다.
                   },
