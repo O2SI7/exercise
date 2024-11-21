@@ -44,7 +44,7 @@ runApp(
         ),
       ),
       theme: ThemeData().copyWith(
-        //ThemeData().copyWith로 복제후에 스타일 설정할수있음
+        //ThemeData().copyWith()로 복제후에 스타일 설정할수있음
         useMaterial3: true,
         colorScheme: kColorScheme,
         appBarTheme: AppBarTheme().copyWith(
