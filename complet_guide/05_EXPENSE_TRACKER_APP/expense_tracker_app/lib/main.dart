@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// import 'package:flutter/services.dart'; < 플루터기능 추가
 import 'package:expense_tracker_app/widgets/expenses.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -11,7 +11,16 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
-  runApp(
+  // WidgetsFlutterBinding.ensureInitialized(); 
+  // 플루터엔진과 위젯프레임워크간의 바인딩을 초기화(시스템을 연결 사용준비)
+  // 비동기작업 초기화, 방향 잠금 설정
+
+  // SystemChrome.setPreferredOrientations([
+  // 앱에서 허용할 기기의 방향(세로/가로 모드) 설정
+
+    // DeviceOrientation.portraitDown,    << 정방향 세로모드
+  // ]).then((fn){
+runApp(
     MaterialApp(
       themeMode: ThemeMode.system,// 시스템에 모드를 설정함
       // them: < 라이트모드로 자동설정
@@ -66,4 +75,6 @@ void main() {
       home: const Expenses(),
     ),
   );
+  // });
+  
 }
