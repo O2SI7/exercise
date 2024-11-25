@@ -2,47 +2,53 @@ import 'dart:io';
 
 //TODO: 이전에 만들었던 퀴즈앱을 CLI 버전으로 만들기
 
+// Ver 2에서는 다음 기능이 추가 되었으면 좋겠다.
+// 1. 1,2,3,4의 입력이 아닌 경우 다시 물어보기
+// 2. 문제를 다 풀고나서 몇점인지, 어느 문제를 틀렸는지 알려주기.
 
 Future<void> main(List<String> arguments) async {
+  print('안녕하세요. Flutter에 관한 퀴즈 앱 입니다. ');
+  print('문제를 보고 알맞은 답을 적어주세요.');
 
-    print('안녕하세요. Flutter에 관한 퀴즈 앱 입니다. ');
-    print('문제를 보고 알맞은 답을 적어주세요.');
-    
-    
-    print('What are the main building blocks of Flutter UIs?\n1.Widgets\n2.Components\n3.Blocks\n4.Functions');
-    String? answersZ = stdin.readLineSync();
-    
-    print('How are Flutter UIs built?\n1.By combining widgets in code\n2.By combining widgets in a visual editor\n3.By defining widgets in config files\n4.By using XCode for iOS and Android Studio for Android');
-    String? answersO = stdin.readLineSync();
-    
-    print('What\'s the purpose of a StatefulWidget?\n1.Update UI as data changes\n2.Update data as UI changes\n3.Ignore data changes\n4.Render UI that does not depend on data');
-    String? answersT = stdin.readLineSync();
-    
-    print('Which widget should you try to use more often: StatelessWidget or StatefulWidget?\n1.StatelessWidget\n2.StatefulWidget\n3.Both are equally good\n4.None of the above');
-    String? answersTH = stdin.readLineSync();
-    
-    print('What happens if you change data in a StatelessWidget?\n1.The UI is not updated\n2.The UI is updated\n3.The closest StatefulWidget is updated\n4.Any nested StatefulWidgets are updated');
-    String? answersF = stdin.readLineSync();
-    
-    print('How should you update data inside of StatefulWidgets?\n1.By calling setState()\n2.By calling updateData()\n3.By calling updateUI()\n4.By calling updateState()');
-    String? answersFi = stdin.readLineSync();
-    
-    if (answersZ !=null && answersZ.isNotEmpty && answersO !=null && answersT !=null && answersTH !=null && answersF !=null && answersFi !=null) {
-      print('0번째 적은 답 : $answersZ');
-      print('1번째 적은 답 : $answersO');
-      print('2번째 적은 답 : $answersT');
-      print('3번째 적은 답 : $answersTH');
-      print('4번째 적은 답 : $answersF');
-      print('5번째 적은 답 : $answersFi');
-    }else{
-      print('모든 답을 적어주세요.');
-    }
-  
+  print('What are the main building blocks of Flutter UIs?\n1.Widgets\n2.Components\n3.Blocks\n4.Functions');
+  String? answersZ = stdin.readLineSync();
 
+  print(
+      'How are Flutter UIs built?\n1.By combining widgets in code\n2.By combining widgets in a visual editor\n3.By defining widgets in config files\n4.By using XCode for iOS and Android Studio for Android');
+  String? answersO = stdin.readLineSync();
 
+  print(
+      'What\'s the purpose of a StatefulWidget?\n1.Update UI as data changes\n2.Update data as UI changes\n3.Ignore data changes\n4.Render UI that does not depend on data');
+  String? answersT = stdin.readLineSync();
 
+  print(
+      'Which widget should you try to use more often: StatelessWidget or StatefulWidget?\n1.StatelessWidget\n2.StatefulWidget\n3.Both are equally good\n4.None of the above');
+  String? answersTH = stdin.readLineSync();
+
+  print(
+      'What happens if you change data in a StatelessWidget?\n1.The UI is not updated\n2.The UI is updated\n3.The closest StatefulWidget is updated\n4.Any nested StatefulWidgets are updated');
+  String? answersF = stdin.readLineSync();
+
+  print(
+      'How should you update data inside of StatefulWidgets?\n1.By calling setState()\n2.By calling updateData()\n3.By calling updateUI()\n4.By calling updateState()');
+  String? answersFi = stdin.readLineSync();
+
+  if (answersZ!.isNotEmpty &&
+      answersO!.isNotEmpty &&
+      answersT!.isNotEmpty &&
+      answersTH!.isNotEmpty &&
+      answersF!.isNotEmpty &&
+      answersFi!.isNotEmpty) {
+    print('0번째 적은 답 : $answersZ');
+    print('1번째 적은 답 : $answersO');
+    print('2번째 적은 답 : $answersT');
+    print('3번째 적은 답 : $answersTH');
+    print('4번째 적은 답 : $answersF');
+    print('5번째 적은 답 : $answersFi');
+  } else {
+    print('모든 답을 적어주세요.');
+  }
 }
-
 
 class QuizQusetions {
   const QuizQusetions(this.text, this.answers);
@@ -56,6 +62,7 @@ class QuizQusetions {
     return shuffledList;
   }
 }
+
 const questions = [
   QuizQusetions(
     'What are the main building blocks of Flutter UIs?',
