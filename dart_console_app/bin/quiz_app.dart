@@ -4,6 +4,10 @@ import 'dart:io';
 
 // Ver 2에서는 다음 기능이 추가 되었으면 좋겠다.
 // 1. 1,2,3,4의 입력이 아닌 경우 다시 물어보기
+//  1-1 입력을 받는다.
+//  1-2 입력이 유효한지(1,2,3,4 중에 하나인지) 검사한다.
+//  1-3 유효하다면, 해당값을 저장한다.
+//  1-4 유효하지 않다면, 다시 1-1로 간다
 // 2. 문제를 다 풀고나서 몇점인지, 어느 문제를 틀렸는지 알려주기.
 
 Future<void> main(List<String> arguments) async {
@@ -33,21 +37,12 @@ Future<void> main(List<String> arguments) async {
       'How should you update data inside of StatefulWidgets?\n1.By calling setState()\n2.By calling updateData()\n3.By calling updateUI()\n4.By calling updateState()');
   String? answersFi = stdin.readLineSync();
 
-  if (answersZ!.isNotEmpty &&
-      answersO!.isNotEmpty &&
-      answersT!.isNotEmpty &&
-      answersTH!.isNotEmpty &&
-      answersF!.isNotEmpty &&
-      answersFi!.isNotEmpty) {
-    print('0번째 적은 답 : $answersZ');
-    print('1번째 적은 답 : $answersO');
-    print('2번째 적은 답 : $answersT');
-    print('3번째 적은 답 : $answersTH');
-    print('4번째 적은 답 : $answersF');
-    print('5번째 적은 답 : $answersFi');
-  } else {
-    print('모든 답을 적어주세요.');
-  }
+  print('0번째 적은 답 : $answersZ');
+  print('1번째 적은 답 : $answersO');
+  print('2번째 적은 답 : $answersT');
+  print('3번째 적은 답 : $answersTH');
+  print('4번째 적은 답 : $answersF');
+  print('5번째 적은 답 : $answersFi');
 }
 
 class QuizQusetions {
