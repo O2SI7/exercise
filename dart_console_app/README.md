@@ -1,6 +1,5 @@
 실행 하는 법
 
-PROJ 루트에서,
-dart run ./bin/${실행하고자_하는_파일}
+https://stackoverflow.com/questions/66722007/dart-code-runs-in-debug-console-not-in-terminal
 
-ex) dart run ./bin/calc_example.dart
+위 설정을 하고, main 함수의 run/debug 버튼 누르기
