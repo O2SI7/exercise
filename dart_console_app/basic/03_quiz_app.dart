@@ -21,12 +21,10 @@ Future<void> main(List<String> arguments) async {
   }
 
   for (final question in questions) {
-    if (userAnswers[questions.indexOf(question)] == question.answers[0]) {
-      print('${questions.indexOf(question) + 1}번 문제: 정답입니다.');
+    if (question.isCorrect()) {
+      question.printCorrect();
     } else {
-      print('${questions.indexOf(question) + 1}번 문제: 오답입니다.');
-      print('제출된 답: ${userAnswers[questions.indexOf(question)]}');
-      print('실제 정답: ${question.answers[0]}');
+      question.printWrong();
     }
   }
 }
@@ -40,6 +38,10 @@ class QuizQusetions {
   final String text;
   final List<String> answers;
   late List<String> shuffledAnswers;
+
+  bool isCorrect() {
+    return userAnswers[questions.indexOf(this)] == answers[0];
+  }
 
   void playQuiz() {
     _printQuiz();
@@ -64,6 +66,16 @@ class QuizQusetions {
       //  1-4 유효하지 않다면, 다시 1-1로 간다
       print('유효하지 않은 답입니다. 정답을 다시 입력해주세요.');
     }
+  }
+
+  void printCorrect() {
+    print('${questions.indexOf(this) + 1}번 문제: 정답입니다.');
+  }
+
+  void printWrong() {
+    print('${questions.indexOf(this) + 1}번 문제: 오답입니다.');
+    print('제출된 답: ${userAnswers[questions.indexOf(this)]}');
+    print('실제 정답: ${answers[0]}');
   }
 }
 
