@@ -10,55 +10,64 @@ import 'dart:io';
 //  1-4 유효하지 않다면, 다시 1-1로 간다
 // 2. 문제를 다 풀고나서 몇점인지, 어느 문제를 틀렸는지 알려주기.
 
+List<String> userAnswers = [];
+
 Future<void> main(List<String> arguments) async {
   print('안녕하세요. Flutter에 관한 퀴즈 앱 입니다. ');
   print('문제를 보고 알맞은 답을 적어주세요.');
 
-  print('What are the main building blocks of Flutter UIs?\n1.Widgets\n2.Components\n3.Blocks\n4.Functions');
-  String? answersZ = stdin.readLineSync();
+  for (final question in questions) {
+    question.playQuiz();
+  }
 
-  print(
-      'How are Flutter UIs built?\n1.By combining widgets in code\n2.By combining widgets in a visual editor\n3.By defining widgets in config files\n4.By using XCode for iOS and Android Studio for Android');
-  String? answersO = stdin.readLineSync();
-
-  print(
-      'What\'s the purpose of a StatefulWidget?\n1.Update UI as data changes\n2.Update data as UI changes\n3.Ignore data changes\n4.Render UI that does not depend on data');
-  String? answersT = stdin.readLineSync();
-
-  print(
-      'Which widget should you try to use more often: StatelessWidget or StatefulWidget?\n1.StatelessWidget\n2.StatefulWidget\n3.Both are equally good\n4.None of the above');
-  String? answersTH = stdin.readLineSync();
-
-  print(
-      'What happens if you change data in a StatelessWidget?\n1.The UI is not updated\n2.The UI is updated\n3.The closest StatefulWidget is updated\n4.Any nested StatefulWidgets are updated');
-  String? answersF = stdin.readLineSync();
-
-  print(
-      'How should you update data inside of StatefulWidgets?\n1.By calling setState()\n2.By calling updateData()\n3.By calling updateUI()\n4.By calling updateState()');
-  String? answersFi = stdin.readLineSync();
-
-  print('0번째 적은 답 : $answersZ');
-  print('1번째 적은 답 : $answersO');
-  print('2번째 적은 답 : $answersT');
-  print('3번째 적은 답 : $answersTH');
-  print('4번째 적은 답 : $answersF');
-  print('5번째 적은 답 : $answersFi');
-}
-
-class QuizQusetions {
-  const QuizQusetions(this.text, this.answers);
-
-  final String text;
-  final List<String> answers;
-
-  List<String> getShuffledAnswers() {
-    final shuffledList = List.of(answers);
-    shuffledList.shuffle();
-    return shuffledList;
+  for (final question in questions) {
+    if (userAnswers[questions.indexOf(question)] == question.answers[0]) {
+      print('${questions.indexOf(question) + 1}번 문제: 정답입니다.');
+    } else {
+      print('${questions.indexOf(question) + 1}번 문제: 오답입니다.');
+      print('제출된 답: ${userAnswers[questions.indexOf(question)]}');
+      print('실제 정답: ${question.answers[0]}');
+    }
   }
 }
 
-const questions = [
+class QuizQusetions {
+  QuizQusetions(this.text, this.answers) {
+    shuffledAnswers = List.of(answers);
+    shuffledAnswers.shuffle();
+  }
+
+  final String text;
+  final List<String> answers;
+  late List<String> shuffledAnswers;
+
+  void playQuiz() {
+    _printQuiz();
+    userAnswers.add(_getUserAnswer());
+  }
+
+  void _printQuiz() {
+    print(text);
+    for (var answer in shuffledAnswers) {
+      print('${shuffledAnswers.indexOf(answer) + 1}. $answer');
+    }
+  }
+
+  String _getUserAnswer() {
+    while (true) {
+      String? answer = stdin.readLineSync();
+      //  1-2 입력이 유효한지(1,2,3,4 중에 하나인지) 검사한다.
+      if (answer == '1' || answer == '2' || answer == '3' || answer == '4') {
+        //  1-3 유효하다면, 해당값을 저장한다.
+        return shuffledAnswers[int.parse(answer!) - 1];
+      }
+      //  1-4 유효하지 않다면, 다시 1-1로 간다
+      print('유효하지 않은 답입니다. 정답을 다시 입력해주세요.');
+    }
+  }
+}
+
+final questions = [
   QuizQusetions(
     'What are the main building blocks of Flutter UIs?',
     [
