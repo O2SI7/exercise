@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:dart_console_app/dart_console_app.dart' as dart_console_app;
-
 final users = {
   'jose1234': '123123',
   'o2si': 'abcd1234',
@@ -25,6 +23,7 @@ void main(List<String> arguments) {
       //users에 아이디가 존재하지 않는다면 -> 아이디가 존재하지 않습니다.
       //users에 아이디가 존재하나, 비밀번호가 일치하지 않는다면 -> 비밀번호가 틀렸어요
       //users에 아이디가 존재하고, 해당 아이디에 맞는 비밀번호라면 -> 로그인 성공
+
       if (users.containsKey(id)) {
         if (users[id] == pw) {
           print('로그인 성공');
