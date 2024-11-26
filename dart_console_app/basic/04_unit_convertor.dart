@@ -1,16 +1,26 @@
 import 'dart:io';
 
+
+// 변환 함수
+double celsiusToFahrenheit(double celsius) {
+  return celsius * 9 / 5 + 32;
+}
+
+double fahrenheitToCelsius(double fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
+
+
+
 //TODO: 단위 환산기 만들기
 //섭씨 <-> 화씨 변환기
 //킬로그램 <-> 파운드 <-> 온스 변환기
 //미터 <-> 피트 <-> 야드 <-> 인치 <-> 마일 변환기
 
 Future<void> main(List<String> arguments) async {
-
-
-
   /**
-   * 
+   * 섭씨 -> Celsius
+   * 화씨 -> Fahrenheit
    * 공식 = 화 > 섭 (?F - 32) x5/9 = 섭
    * 공식 = 섭 > 화 (?C x 9/5) + 32 = 화 
    * 
@@ -28,6 +38,44 @@ Future<void> main(List<String> arguments) async {
   // 온스(oz) = 킬로그램(kg) * 35.274
   // 온스 -> 킬로그램 
   // 킬로그램(kg) = 온스(oz) / 35.274 
+
+// 미터 → 피트 
+// 피트(ft) = 미터(m) × 3.28084
+// 피트 → 미터
+// 미터(m) = 피트(ft) ÷ 3.28084
+
+// 미터 → 야드
+// 야드(yd) = 미터(m) × 1.09361
+// 야드 → 미터
+// 미터(m) = 야드(yd) ÷ 1.09361
+ 
+// 미터 → 인치
+// 인치(in) = 미터(m) × 39.3701
+// 인치 → 미터 
+// 미터(m) = 인치(in) ÷ 39.3701
+
+// 미터 → 마일
+// 마일(mi)= 미터 (m) ÷ 1609.344
+// 마일 → 미터 
+// 미터(m) = 마일(mi) × 1609.344
+
+// 피트 → 인치
+// 인치(in) = 피트(ft) × 12
+// 인치 → 피트
+// 피트(ft) = 인치(in) ÷ 12
+
+// 피트 → 야드 
+// 야드(yd) = 피트(ft) ÷ 3
+// 야드 → 피트
+// 피트(ft) = 야드(yd) × 3
+
+// 마일 → 피트
+// 피트(ft) = 마일(mi) × 5280
+// 피트 → 마일
+// 마일(mi) = 피트(ft) ÷ 5280
+
+
+
    * 
    * [단위 변환기]
    * 1. 섭씨 <-> 화씨
@@ -48,31 +96,22 @@ Future<void> main(List<String> arguments) async {
    * 
    */
 
-    print('[단위 변환기]');
-    print('1.섭씨 <-> 화씨');
-    print('2.킬로그램 <-> 파운드 <-> 온스');
-    print('3.미터 <-> 피트 <-> 야드 <-> 인치 <-> 마일');
-    print('변환하려는 항목을 선택하세요: ');
+  print('[단위 변환기]');
+  print('1.섭씨 <-> 화씨');
+  print('2.킬로그램 <-> 파운드 <-> 온스');
+  print('3.미터 <-> 피트 <-> 야드 <-> 인치 <-> 마일');
+  print('변환하려는 항목을 선택하세요: ');
   final command = stdin.readLineSync();
   
-    
 
-  if (command =='1'){
-    print('섭씨(C) 또는 화씨(F) 중 입력값의 단위를 선택하세요 (C/F): C');
+  if (command == '1') {
+    print('섭씨(C) 또는 화씨(F) 중 입력값의 단위를 선택하세요 (C/F)');
     final a = stdin.readLineSync();
-    if(a == 'C'){
+    
+    if (a == 'C') {
       print('변환하려는 값을 입력하세요:');
-      final num = stdin.readLineSync();
+      final num  = stdin.readLineSync();
     }
-
-
-  }else if(command =='2'){
-
-  }else if(command =='3'){
-    
-  
-    
-
-
-}
+  } else if (command == '2') {
+  } else if (command == '3') {}
 }
