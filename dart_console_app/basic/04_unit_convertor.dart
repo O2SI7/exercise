@@ -23,14 +23,14 @@ double fahrenheitToCelsius(double fahrenheit) {
    * 공식 = 섭 > 화 (?C x 9/5) + 32 = 화 
    * 
    * // 킬로그램-> 파운드
-  // 파운드(Ib) = 킬로그램(kg) * 2.20462 
+  // 파운드(lb) = 킬로그램(kg) * 2.20462 
   // 파운드-> 킬로그램
-  // 킬로그램(kg) = 파운드(Ib)  / 2.20462 
+  // 킬로그램(kg) = 파운드(lb)  / 2.20462 
 
   // 파운드 -> 온스 
-  // 온스(oz) = 파운드(Ib) * 16
+  // 온스(oz) = 파운드(lb) * 16
   // 온스 -> 파운드
-  //파운드(Ib) = 온스(oz) / 16
+  //파운드(lb) = 온스(oz) / 16
 
   // 킬로그램 -> 온스 
   // 온스(oz) = 킬로그램(kg) * 35.274
@@ -127,29 +127,83 @@ Future<void> main(List<String> arguments) async {
       //TODO: 없는 커맨드
     }
   } else if (command == '2') {
-    print('TODO: 질량 환산');
-
-
-  }else if(command =='2'){
-    print('1.킬로그램 2.파운드 3.온스 선택 :');
-        final q = stdin.readLineSync();
-        if(q == '1'){
-          //킬로그램
-          print('무게 입력 : ');
-          final weight = stdin.readLineSync();
-          
-          
-        }else if(q == '2'){
-          // 파운드일떄
-        }else if(q == '3'){
-        // 온스일때
-        }
-  }else if(command =='3'){
-    
-  
-    
-
-
-}
-
+    print('1.킬로그램(kg)\n2.파운드(lb)\n3.온스(oz)');
+    final q = stdin.readLineSync();
+    if (q == '1') {
+      //킬로그램
+      print('무게 입력 : ');
+      final weight = double.parse(stdin.readLineSync()!);
+      final lb = (weight * 2.20462); //파운드 값
+      final oz = (weight * 35.274); //온스 값
+      print('변환 된 파운드 값 : $lb\n변환 된 온스 값 : $oz');
+    } else if (q == '2') {
+      // 파운드일떄
+      print('무게 입력 : ');
+      final lb = double.parse(stdin.readLineSync()!);
+      final weight = (lb / 2.20462); //킬로그램 값
+      final oz = (lb * 16); //온스 값
+      print('변환 된 킬로그램 값 : $weight\n변환 된 온스 값 : $oz');
+    } else if (q == '3') {
+      // 온스일때
+      print('무게 입력 : ');
+      final oz = double.parse(stdin.readLineSync()!);
+      final weight = (oz / 35.274); //킬로그램 값
+      final lb = (oz / 16); //파운드 값
+      print('변환 된 킬로그램 값 : $weight\n변환 된 파운드 값 : $lb');
+    }
+  } else if (command == '3') {
+    print('1.미터(m)\n2.피트(ft)\n3.야드(yd)\n4.인치(inch)\n5.마일(mi)');
+    final q = stdin.readLineSync();
+    if (q == '1') {
+      //미터 (m)
+      print(' 값 입력 : ');
+      final m = double.parse(stdin.readLineSync()!);
+      final ft = (m * 3.28084); //피트 값
+      final yd = (m * 1.09361); //야드 값
+      final inch = (m * 39.3701); //인치 값
+      final mi = (m / 1609.344); //마일 값
+      print('변환 된 피트 값 : $ft\n변환 된 야드 값 : $yd');
+      print('변환 된 인치 값 : $inch\n변환 된 마일 값 : $mi');
+    } else if (q == '2') {
+      //피트 (ft)
+      print(' 값 입력 : ');
+      final ft = double.parse(stdin.readLineSync()!);
+      final m = (ft / 3.28084); //미터 값
+      final yd = (ft / 3); //야드 값
+      final inch = (ft * 12); //인치 값
+      final mi = (ft / 5280); //마일 값
+      print('변환 된 미터 값 : $m\n변환 된 야드 값 : $yd');
+      print('변환 된 인치 값 : $inch\n변환 된 마일 값 : $mi');
+    } else if (q == '3') {
+      //야드(yd)
+      print(' 값 입력 : ');
+      final yd = double.parse(stdin.readLineSync()!);
+      final m = (yd / 1.09361); //미터 값
+      final ft = (yd / 3); //피트 값
+      final inch = (yd * 36); //인치 값
+      final mi = (yd / 0.00056818); //마일 값
+      print('변환 된 미터 값 : $m\n변환 된 피트 값 : $ft');
+      print('변환 된 인치 값 : $inch\n변환 된 마일 값 : $mi');
+    } else if (q == '4') {
+      //인치(in)
+      print(' 값 입력 : ');
+      final inch = double.parse(stdin.readLineSync()!);
+      final m = (inch / 39.3701); //미터 값
+      final ft = (inch / 12); //피트 값
+      final yd = (inch / 36); //야드 값
+      final mi = (inch / 63360); //마일 값
+      print('변환 된 미터 값 : $m\n변환 된 피트 값 : $ft');
+      print('변환 된 야드 값 : $yd\n변환 된 마일 값 : $mi');
+    } else if (q == '5') {
+      //마일(mi)
+      print(' 값 입력 : ');
+      final mi = double.parse(stdin.readLineSync()!);
+      final m = (mi * 1609.344); //미터 값
+      final ft = (mi * 5280); //피트 값
+      final yd = (mi * 1760); //야드 값
+      final inch = (mi * 63360); //인치 값
+      print('변환 된 미터 값 : $m\n변환 된 피트 값 : $ft');
+      print('변환 된 야드 값 : $yd\n변환 된 인치 값 : $inch');
+    }
+  }
 }
