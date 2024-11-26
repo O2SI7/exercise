@@ -3,6 +3,8 @@ import '04_unit_convertor.dart';
 
 int money = 0;
 int money2 = 0;
+String? name = '';
+List<String> history = [];
 
 Future<void> main(List<String> arguments) async {
   while (true) {
@@ -25,10 +27,16 @@ Future<void> main(List<String> arguments) async {
       case '5':
         transactionHistory();
         break;
-      case '6':
-        exit();
-        break;
+
       default:
+
+      
+    }if(command == '6'){
+      print('[✨ 프로그램 종료 ✨]');
+      print('// ${history[0]}님, 저희 은행을 이용해주셔서 감사합니다. 💖');
+      print('오늘도 행복한 하루 되세요! 다음에 또 만나요. 🙋‍♀️');
+
+      break;
     }
   }
 }
@@ -48,7 +56,7 @@ void printWelcomeMessage() {
 void createAccount() {
   print('✨새 계좌 만들기✨\n축하드립니다! 당신만의 계좌를 개설합니다.🎉');
   print('당신의 이름을 입력해주세요.');
-  final name = stdin.readLineSync();
+  name = stdin.readLineSync();
   print('좋아요! $name님, 이제부터 부자 되는 길에 함께 하겠습니다.');
   print('초기 입금액을 입력 해주세요.\n(₩):');
   money = int.parse(stdin.readLineSync()!);
@@ -59,6 +67,10 @@ void createAccount() {
   print('- 예금주: $name');
   print('- 계좌번호: 1234-5678-9012');
   print('- 잔액: ₩$money');
+
+history.add("이름 : $name");
+history.add('초기입금액 : $money');
+
 }
 
 void deposit() {
@@ -70,30 +82,49 @@ void deposit() {
   print('[✅ 입금 완료 ✅]');
   print('현재 잔액은 ₩$money입니다.');
   print('고객님, 저축하는 모습이 아름다워요! 😍');
+
+  history.add("입금액 : $money2");
 }
 
 void withdraw() {
+  while (true) {
   print('[✨ 출금하기 ✨]');
   print('출금액을 입력해주세요.\n(₩):');
-  if (money >=money2 ) {
-    money2 = int.parse(stdin.readLineSync()!);
-    print('출금 금액. (₩):$money2 ');
-    money -= money2;
-    print('남은 금액. (₩):$money');
-    print('고객님, 큰돈 쓰셨네요! 어디에 쓰시나요? 쇼핑? 여행? 😎');
-  } else if (money < -1) {
-    print('[앗! 잔액이 부족합니다. 💔]');
-    print('현재 잔액: ₩$money');
-    print('출금 요청 금액: ₩$money2');
-   
-    print('[❌ 출금 실패 ❌]');
-    print('고객님, 잔액이 부족합니다. 다시 확인해주세요!');
-    print('혹시 대출이 필요하신가요? 농담입니다. 😅');
+  money2 = int.parse(stdin.readLineSync()!);
+    if (money < money2) {
+      print('[앗! 잔액이 부족합니다. 💔]');
+      print('현재 잔액: ₩$money');
+      print('출금 요청 금액: ₩$money2');
+
+      print('[❌ 출금 실패 ❌]');
+      print('고객님, 잔액이 부족합니다. 다시 확인해주세요!');
+      print('혹시 대출이 필요하신가요? 농담입니다. 😅');
+      history.add("출금 시도액 : $money2");
+    } else if (money >= money2) {
+      money -= money2;
+      print('출금 금액. (₩):$money2');
+      print('남은 금액. (₩):$money');
+      print('고객님, 큰돈 쓰셨네요! 어디에 쓰시나요? 쇼핑? 여행? 😎');
+       history.add("출금액 : $money2");
+      break;
+    }
   }
+ 
 }
 
-void checkBalance() {}
+void checkBalance() {
+  print('$name님의 계좌 잔액은 ₩$money입니다');
+  print('아직 돈이 넉넉하네요! 조금 더 저축하면 목표에 도달할 수 있어요! 🌟');
 
-void transactionHistory() {}
+  history.add("현재잔액 : $money");
+}
 
-void exit() {}
+void transactionHistory() {
+   print('[✨ 거래 내역 확인 ✨]');
+   print('1. 계좌 생성: 초기 입금 ₩${history[1]}');
+   print('2. 입금: ₩${history[2]}');
+   print('3. 출금: ₩${history[3]}');
+   print('4. 출금 시도: ${history[4]}');
+   print('현재 잔액: ${history[5]}');
+}
+
