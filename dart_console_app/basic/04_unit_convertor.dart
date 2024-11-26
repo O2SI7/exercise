@@ -129,12 +129,38 @@ Future<void> main(List<String> arguments) async {
   } else if (command == '2') {
     print('TODO: 질량 환산');
 
-    //TODO: 질량 환산
-  } else if (command == '3') {
-    //TODO: 거리 환산
-    print('TODO: 거리 환산');
-  } else {
-    //TODO: 없는 커맨드
-    print('TODO: 없는 커맨드 처리');
-  }
+
+  }else if(command =='2'){
+    print('1.킬로그램 2.파운드 3.온스 선택 :');
+        final q = stdin.readLineSync();
+        if(q == '1'){
+          //킬로그램
+          print('무게 입력 : ');
+          final weight = stdin.readLineSync();
+          print('변환할 단위 : (1.파운드/2.온스) ');
+          final t = stdin.readLineSync();
+          
+          if(t == '1'){
+            // 변경할게 파운드일경우 ( 킬 > 파)
+            print("결과 : "); 
+          }else if(t=='3'){
+
+          }else{
+            print('없음');
+          };
+          
+          
+        }else if(q == '2'){
+          // 파운드일떄
+        }else if(q == '3'){
+        // 온스일때
+        }
+  }else if(command =='3'){
+    
+  
+    
+
+
+}
+
 }
