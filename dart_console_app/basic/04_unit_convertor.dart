@@ -27,15 +27,19 @@ import 'dart:io';
 ///
 ///
 Future<void> main(List<String> arguments) async {
-  printWelcome();
+  while (true) {
+    printWelcome();
 
-  final command = getUserInput(['1', '2', '3']);
-  if (command == '1') {
-    executeTempConversion();
-  } else if (command == '2') {
-    executeMassConversion();
-  } else if (command == '3') {
-    executeLenthConversion();
+    final command = getUserInput(['1', '2', '3', 'exit']);
+    if (command == '1') {
+      executeTempConversion();
+    } else if (command == '2') {
+      executeMassConversion();
+    } else if (command == '3') {
+      executeLenthConversion();
+    } else if (command == 'exit') {
+      break;
+    }
   }
 }
 
@@ -50,9 +54,10 @@ void printWelcome() {
 String getUserInput(List<String> allowCommandList /** [1, 2, 3] */) {
   String? command;
 
+  command = stdin.readLineSync();
   while (!allowCommandList.contains(command)) {
-    command = stdin.readLineSync();
     print('유효하지 않은 명령입니다. 다시 입력해주세요');
+    command = stdin.readLineSync();
   }
 
   //얘는 리턴이 항상 1, 2, 3중 하나임을 보장함
