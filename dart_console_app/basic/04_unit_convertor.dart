@@ -62,6 +62,7 @@ Future<void> main(List<String> arguments) async {
     final a = stdin.readLineSync();
     if(a == 'C'){
       print('변환하려는 값을 입력하세요:');
+      final num = stdin.readLineSync();
     }
 
 
