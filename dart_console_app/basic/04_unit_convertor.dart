@@ -137,17 +137,6 @@ Future<void> main(List<String> arguments) async {
           //킬로그램
           print('무게 입력 : ');
           final weight = stdin.readLineSync();
-          print('변환할 단위 : (1.파운드/2.온스) ');
-          final t = stdin.readLineSync();
-          
-          if(t == '1'){
-            // 변경할게 파운드일경우 ( 킬 > 파)
-            print("결과 : "); 
-          }else if(t=='3'){
-
-          }else{
-            print('없음');
-          };
           
           
         }else if(q == '2'){
