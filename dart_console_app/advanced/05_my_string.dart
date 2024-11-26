@@ -1,6 +1,6 @@
 class MyString {
   // Internal storage for the string
-  String _data;
+  final String _data;
 
   // Constructor
   MyString([String initial = ""]) : _data = initial;

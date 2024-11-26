@@ -1,7 +1,8 @@
 import 'dart:io';
 
-
 // 변환 함수
+//  * 공식 = 화 > 섭 (?F - 32) x5/9 = 섭
+//  * 공식 = 섭 > 화 (?C x 9/5) + 32 = 화
 double celsiusToFahrenheit(double celsius) {
   return celsius * 9 / 5 + 32;
 }
@@ -10,15 +11,12 @@ double fahrenheitToCelsius(double fahrenheit) {
   return (fahrenheit - 32) * 5 / 9;
 }
 
-
-
 //TODO: 단위 환산기 만들기
 //섭씨 <-> 화씨 변환기
 //킬로그램 <-> 파운드 <-> 온스 변환기
 //미터 <-> 피트 <-> 야드 <-> 인치 <-> 마일 변환기
 
-Future<void> main(List<String> arguments) async {
-  /**
+/**
    * 섭씨 -> Celsius
    * 화씨 -> Fahrenheit
    * 공식 = 화 > 섭 (?F - 32) x5/9 = 섭
@@ -73,9 +71,6 @@ Future<void> main(List<String> arguments) async {
 // 피트(ft) = 마일(mi) × 5280
 // 피트 → 마일
 // 마일(mi) = 피트(ft) ÷ 5280
-
-
-
    * 
    * [단위 변환기]
    * 1. 섭씨 <-> 화씨
@@ -95,23 +90,51 @@ Future<void> main(List<String> arguments) async {
    * 결과: 100°F -> 37.78°C
    * 
    */
-
+Future<void> main(List<String> arguments) async {
   print('[단위 변환기]');
   print('1.섭씨 <-> 화씨');
   print('2.킬로그램 <-> 파운드 <-> 온스');
   print('3.미터 <-> 피트 <-> 야드 <-> 인치 <-> 마일');
   print('변환하려는 항목을 선택하세요: ');
   final command = stdin.readLineSync();
-  
 
   if (command == '1') {
+    //TODO: 온도 환산
     print('섭씨(C) 또는 화씨(F) 중 입력값의 단위를 선택하세요 (C/F)');
-    final a = stdin.readLineSync();
-    
-    if (a == 'C') {
-      print('변환하려는 값을 입력하세요:');
-      final num  = stdin.readLineSync();
+    final inputTemperatureType = stdin.readLineSync();
+
+    if (inputTemperatureType == 'C') {
+      //TODO: 섭씨->화씨
+      // if (a == 'C') {
+      //   print('변환하려는 값을 입력하세요:');
+      //   final num = stdin.readLineSync();
+      // }
+      //  * 공식 = 화 -> 섭           (?F - 32) x5/9 = 섭
+      //  * 공식 = 섭 -> 화               (?C x 9/5) + 32 = 화
+      print('섭씨온도 입력:');
+      final inputTemperature = double.parse(stdin.readLineSync()!);
+      final fahrenheit = inputTemperature * 9 / 5 + 32;
+      print('섭씨 $inputTemperature도 -> 화씨 $fahrenheit ');
+
+      // 변환, 출력
+    } else if (inputTemperatureType == 'F') {
+      //TODO: 화씨->섭씨
+      print('화씨온도 입력:');
+      final inputTemperature = double.parse(stdin.readLineSync()!);
+      final celsius = (inputTemperature - 32) * 5 / 9;
+      print('화씨 $inputTemperature도 -> 섭씨 $celsius ');
+    } else {
+      //TODO: 없는 커맨드
     }
   } else if (command == '2') {
-  } else if (command == '3') {}
+    print('TODO: 질량 환산');
+
+    //TODO: 질량 환산
+  } else if (command == '3') {
+    //TODO: 거리 환산
+    print('TODO: 거리 환산');
+  } else {
+    //TODO: 없는 커맨드
+    print('TODO: 없는 커맨드 처리');
+  }
 }

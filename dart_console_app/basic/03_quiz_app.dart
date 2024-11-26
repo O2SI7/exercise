@@ -17,6 +17,10 @@ Future<void> main(List<String> arguments) async {
   print('문제를 보고 알맞은 답을 적어주세요.');
 
   for (final question in questions) {
+    // playQuiz가 하는 일
+    // 각 QuizQusetions 객체의 퀴즈를 프린트하고,
+    // 유저의 답변 입력을 저장함
+
     question.playQuiz();
   }
 
