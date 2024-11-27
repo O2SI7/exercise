@@ -8,22 +8,22 @@ int turn = 0; //게임 횟수
 int maxGame = 10;
 int inputUser = 0; // 유저입력숫자
 Future<void> main(List<String> arguments) async {
-  printWelcomeMessage();
-  game();
-//   while (true) {
-//   printWelcomeMessage();
-//  final command = getUserInput(['0', '1', '2',]);
+ 
+    
+    printWelcomeMessage();
+    game();
 
-//     switch (command ) {
-//       case '0':
-
-//         break;
-//       default:
-//     }
-//   }
-
-//   game();
-// }
+   
+    // print('게임을 다시 시작하려면 Y를 입력하세요.');
+    // print('게임을 종료하려면 N을 입력하세요.');
+    // final inputchoice = stdin.readLineSync();
+    //   if (inputchoice == 'Y') {
+    //     return game();
+    //   } else if (inputchoice == 'N') {
+    //     print('ㅂ2ㅂ2');
+    //     break;
+    //   }
+  
 }
 
 void printWelcomeMessage() {
@@ -35,10 +35,18 @@ void printWelcomeMessage() {
 }
 
 void game() {
+  int turn = 0;
+  int comRandom = Random().nextInt(100) + 1;
   while (turn < maxGame) {
-    int turn = 0;
     turn++;
-    print('[턴: $turn]\n숫자를 입력하세요:');
+    print('[턴: $turn]');
+    if (turn == maxGame) {
+      print(' [☠️ 게임 오버 ☠️]');
+      print('기회를 모두 소진했습니다. 😔');
+      print('정답은 $comRandom이었습니다.');
+      break;
+    }
+    print('숫자를 입력하세요:');
     final inputUser = int.parse(stdin.readLineSync()!);
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
@@ -48,8 +56,9 @@ void game() {
       print('게임을 종료하려면 N을 입력하세요.');
       final inputchoice = stdin.readLineSync();
       if (inputchoice == 'Y') {
-        int turn = 0;
-        continue;
+        print('[🔄 게임 초기화 🔄]');
+        print('1부터 100 사이의 무작위 숫자를 맞혀보세요! 😊');
+        return game();
       } else if (inputchoice == 'N') {
         break;
       }
