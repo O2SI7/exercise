@@ -52,7 +52,7 @@ void game() {
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
       print('축하합니다! 정답은 $comRandom입니다! 🎯');
-      if(comRandom == inputUser){
+      if (comRandom == inputUser) {
         return levelUp();
       }
       reset();
@@ -72,8 +72,6 @@ void game() {
     }
   }
 }
-
-
 
 void game2() {
   int turn = 0;
@@ -95,7 +93,7 @@ void game2() {
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
       print('축하합니다! 정답은 $comRandom입니다! 🎯');
-      if(comRandom == inputUser){
+      if (comRandom == inputUser) {
         return levelUp2();
       }
       reset();
@@ -115,6 +113,7 @@ void game2() {
     }
   }
 }
+
 void game3() {
   int turn = 0;
   int comRandom = Random().nextInt(1000) + 1;
@@ -153,6 +152,7 @@ void game3() {
     }
   }
 }
+
 void reset() {
   while (true) {
     print('게임을 다시 시작하려면 Y를 입력하세요.');
@@ -170,38 +170,37 @@ void reset() {
 }
 
 void levelUp() {
-  while (true){
+  while (true) {
     print('게임을 다시 시작하려면 Y를 입력하세요.');
     print('게임을 종료하려면 N을 입력하세요.');
-  final inputchoice = stdin.readLineSync();
-  if (inputchoice == 'Y') {
-    print('[🔄 게임 초기화 🔄]');
-    print('[🎲 난이도 中 🎲]');
-    print('[게임을 시작하지');
-    print('1부터 500 사이의 무작위 숫자를 맞혀보세요!');
-    print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
-    return game2();
-  } else if (inputchoice == 'N') {
-    break;
+    final inputchoice = stdin.readLineSync();
+    if (inputchoice == 'Y') {
+      print('[🔄 게임 초기화 🔄]');
+      print('[🎲 난이도 中 🎲]');
+      print('[게임을 시작하지');
+      print('1부터 500 사이의 무작위 숫자를 맞혀보세요!');
+      print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
+      return game2();
+    } else if (inputchoice == 'N') {
+      break;
+    }
   }
-  }
-  
 }
+
 void levelUp2() {
-  while (true){
+  while (true) {
     print('게임을 다시 시작하려면 Y를 입력하세요.');
     print('게임을 종료하려면 N을 입력하세요.');
-  final inputchoice = stdin.readLineSync();
-  if (inputchoice == 'Y') {
-    print('[🔄 게임 초기화 🔄]');
-    print('[🎲 난이도 上 🎲]');
-    print('[게임을 시작하지');
-    print('1부터 1000 사이의 무작위 숫자를 맞혀보세요!');
-    print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
-    return game3();
-  } else if (inputchoice == 'N') {
-    break;
+    final inputchoice = stdin.readLineSync();
+    if (inputchoice == 'Y') {
+      print('[🔄 게임 초기화 🔄]');
+      print('[🎲 난이도 上 🎲]');
+      print('[게임을 시작하지');
+      print('1부터 1000 사이의 무작위 숫자를 맞혀보세요!');
+      print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
+      return game3();
+    } else if (inputchoice == 'N') {
+      break;
+    }
   }
-  }
-  
 }
