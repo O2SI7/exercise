@@ -1,6 +1,6 @@
 import 'dart:io';
 
-final users = {
+final Map<String, String> users = {
   'jose1234': '123123',
   'o2si': 'abcd1234',
 };
