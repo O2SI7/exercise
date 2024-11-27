@@ -21,6 +21,17 @@ void printWelcomeMessage() {
   print('게임을 시작합니다!');
 }
 
+int getUserInput() {
+  int? inputNumber = int.tryParse(stdin.readLineSync()!);
+
+  while (inputNumber == null) {
+    print('숫자만 입력 할 수 있습니다. 다시 적어주세요.');
+    inputNumber = int.tryParse(stdin.readLineSync()!);
+  }
+
+  return inputNumber;
+}
+
 void game() {
   int turn = 0;
   int comRandom = Random().nextInt(100) + 1;
@@ -36,21 +47,24 @@ void game() {
       break;
     }
     print('숫자를 입력하세요:');
-    // try {
-    final inputUser = int.parse(stdin.readLineSync()!);
+    final inputUser = getUserInput();
+
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
       print('축하합니다! 정답은 $comRandom입니다! 🎯');
       reset();
-
       break;
+    } else if (inputUser < 0 || inputUser > 100) {
+      print('[❌ 오답입니다!]');
+      print('힌트 : 문제를 다시 읽으세요 ㅋㅋ');
+      print('\n\n다시 시도하세요!');
     } else if (comRandom > inputUser) {
       print('[❌ 오답입니다!]');
       print('힌트 : 너무 낮습니다! 📉');
       print('\n\n다시 시도하세요!');
     } else if (comRandom < inputUser) {
       print('[❌ 오답입니다!]');
-      print('힌트 : 너무 높습니다! 📉');
+      print('힌트 : 너무 높습니다! 📈');
       print('\n\n다시 시도하세요!');
     }
     // }catch(e){
