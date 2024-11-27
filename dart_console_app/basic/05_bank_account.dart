@@ -6,6 +6,7 @@ int money = 0;
 int money2 = 0;
 String? name = '';
 List<String> history = [];
+//List<String> users = []; 추가 한것
 
 // 1. 사용자 없이 입금이 가능함
 // 2. 음의 금액 (마이너스 금액)이 입/출금 될 수 있음
@@ -65,6 +66,15 @@ void printWelcomeMessage() {
 
 void checkoutAccount() {
   print('[✨ 기존 계좌를 적어주세요.✨]');
+  // if (history.contains(name)) {
+  //       if (users[history] == name ) {
+  //         print('계좌가 확인 되었습니다.');
+  //         return;
+  //       } else {
+  //         print('계좌가 일치하지 않아요');
+  //       }
+  //     } else {
+  //       print('계좌가 존재하지 않습니다.'); 추가 한 것
 }
 
 void createAccount() {
@@ -89,7 +99,7 @@ void createAccount() {
 
 void deposit() {
   print('[✨ 입금하기 ✨]');
-  if(name == null || name == ''){
+  if (name == null || name == '') {
     print('계좌정보가 없습니다.');
     return;
   }
@@ -97,9 +107,9 @@ void deposit() {
   money2 = int.parse(stdin.readLineSync()!);
   money += money2;
   if (money2 <= 0) {
-       print('[❌ 입금 실패 ❌]');
-      return deposit();
-    }
+    print('[❌ 입금 실패 ❌]');
+    return deposit();
+  }
   print('잔액에 ₩$money2을 추가합니다... 💵');
   print('[✅ 입금 완료 ✅]');
   print('현재 잔액은 ₩$money입니다.');
@@ -111,14 +121,14 @@ void deposit() {
 void withdraw() {
   while (true) {
     print('[✨ 출금하기 ✨]');
-    if(name == null || name == ''){
-    print('❌ 계좌정보가 없습니다. ❌');
-    return;
-  }
+    if (name == null || name == '') {
+      print('❌ 계좌정보가 없습니다. ❌');
+      return;
+    }
     print('출금액을 입력해주세요.\n(₩):');
     money2 = int.parse(stdin.readLineSync()!);
     if (money2 <= 0) {
-       print('[❌ 출금 실패 ❌]');
+      print('[❌ 출금 실패 ❌]');
       return withdraw();
     }
     if (money < money2) {
