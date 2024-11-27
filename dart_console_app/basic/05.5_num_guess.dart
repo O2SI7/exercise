@@ -7,6 +7,7 @@ int comRandom = Random().nextInt(100) + 1; //컴퓨터 랜덤숫자
 int turn = 0; //게임 진행 횟수
 int maxGame = 10; // 도전 기회
 int inputUser = 0; // 유저입력숫자
+
 Future<void> main(List<String> arguments) async {
   printWelcomeMessage();
   game();
@@ -35,10 +36,8 @@ void game() {
       break;
     }
     print('숫자를 입력하세요:');
+    // try {
     final inputUser = int.parse(stdin.readLineSync()!);
-    if (inputUser == null) {
-      print('숫자만 입력 할 수 있습니다. 다시 적어주세요.');
-    }
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
       print('축하합니다! 정답은 $comRandom입니다! 🎯');
@@ -54,6 +53,10 @@ void game() {
       print('힌트 : 너무 높습니다! 📉');
       print('\n\n다시 시도하세요!');
     }
+    // }catch(e){
+    //   turn--;
+    //   print('\n❌숫자만 입력하세요❌ :\n');
+    // }
   }
 }
 
