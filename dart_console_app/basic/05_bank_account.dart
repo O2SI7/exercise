@@ -96,7 +96,7 @@ void deposit() {
   print('입금액을 입력해주세요.\n(₩):');
   money2 = int.parse(stdin.readLineSync()!);
   money += money2;
-  if (money2 < 0) {
+  if (money2 <= 0) {
        print('[❌ 입금 실패 ❌]');
       return deposit();
     }
@@ -117,10 +117,8 @@ void withdraw() {
   }
     print('출금액을 입력해주세요.\n(₩):');
     money2 = int.parse(stdin.readLineSync()!);
-    if (money2 < 0) {
+    if (money2 <= 0) {
        print('[❌ 출금 실패 ❌]');
-      
-      
       return withdraw();
     }
     if (money < money2) {
