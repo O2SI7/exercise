@@ -89,9 +89,17 @@ void createAccount() {
 
 void deposit() {
   print('[✨ 입금하기 ✨]');
+  if(name == null || name == ''){
+    print('계좌정보가 없습니다.');
+    return;
+  }
   print('입금액을 입력해주세요.\n(₩):');
   money2 = int.parse(stdin.readLineSync()!);
   money += money2;
+  if (money2 < 0) {
+       print('[❌ 입금 실패 ❌]');
+      return deposit();
+    }
   print('잔액에 ₩$money2을 추가합니다... 💵');
   print('[✅ 입금 완료 ✅]');
   print('현재 잔액은 ₩$money입니다.');
@@ -103,8 +111,18 @@ void deposit() {
 void withdraw() {
   while (true) {
     print('[✨ 출금하기 ✨]');
+    if(name == null || name == ''){
+    print('❌ 계좌정보가 없습니다. ❌');
+    return;
+  }
     print('출금액을 입력해주세요.\n(₩):');
     money2 = int.parse(stdin.readLineSync()!);
+    if (money2 < 0) {
+       print('[❌ 출금 실패 ❌]');
+      
+      
+      return withdraw();
+    }
     if (money < money2) {
       print('[앗! 잔액이 부족합니다. 💔]');
       print('현재 잔액: ₩$money');
