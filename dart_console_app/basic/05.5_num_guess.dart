@@ -52,6 +52,7 @@ void game() {
     if (comRandom == inputUser) {
       print('[🎉 정답입니다! 🎉]');
       print('축하합니다! 정답은 $comRandom입니다! 🎯');
+
       reset();
       break;
     } else if (inputUser < 0 || inputUser > 100) {
@@ -67,10 +68,6 @@ void game() {
       print('힌트 : 너무 높습니다! 📈');
       print('\n\n다시 시도하세요!');
     }
-    // }catch(e){
-    //   turn--;
-    //   print('\n❌숫자만 입력하세요❌ :\n');
-    // }
   }
 }
 
@@ -78,14 +75,20 @@ void reset() {
   while (true) {
     print('게임을 다시 시작하려면 Y를 입력하세요.');
     print('게임을 종료하려면 N을 입력하세요.');
-    final inputchoice = stdin.readLineSync();
-    if (inputchoice == 'Y') {
-      print('[🔄 게임 초기화 🔄]');
-      print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
-      print('1부터 100 사이의 무작위 숫자를 맞혀보세요! 😊');
-      return game();
-    } else if (inputchoice == 'N') {
-      break;
-    }
+    levelUp();
   }
+}
+
+void levelUp() {
+  final inputchoice = stdin.readLineSync();
+  if (inputchoice == 'Y') {
+    print('[🔄 게임 초기화 🔄]');
+    print('[🎲 난이도 中 🎲]');
+    print('[게임을 시작하지');
+    print('1부터 500 사이의 무작위 숫자를 맞혀보세요!');
+    print('새로운 숫자를 생성합니다. 다시 시작합니다! 🎲\n');
+    int comRandom = Random().nextInt(500) + 1; //컴퓨터 랜덤숫자
+    return game();
+  } else if (inputchoice == 'N') {}
+  ;
 }
