@@ -17,10 +17,10 @@ Future<void> main(List<String> arguments) async {
   while (true) {
     printWelcomeMessage();
 
-    final command = getUserInput(['1', '2', '3', '4', '5', '6']);
+    final command = getUserInput(['0', '1', '2', '3', '4', '5', '6']);
     switch (command) {
       case '0':
-        // checkoutAccount();
+        checkoutAccount();
         break;
       case '1':
         createAccount();
@@ -63,6 +63,10 @@ void printWelcomeMessage() {
   print(' 원하시는 작업 번호를 입력하세요.');
 }
 
+void checkoutAccount() {
+  print('[✨ 기존 계좌를 적어주세요.✨]');
+}
+
 void createAccount() {
   print('✨새 계좌 만들기✨\n축하드립니다! 당신만의 계좌를 개설합니다.🎉');
   print('당신의 이름을 입력해주세요.');
@@ -73,6 +77,7 @@ void createAccount() {
 
   print('[🎊 계좌 생성 완료 🎊]:');
   print('$name님, 계좌가 개설되었습니다.');
+
   print('계좌 정보: .');
   print('- 예금주: $name');
   print('- 계좌번호: 1234-5678-9012');
