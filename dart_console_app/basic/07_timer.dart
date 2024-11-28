@@ -1,3 +1,12 @@
+import 'dart:async';
+
+Future<void> main(List<String> arguments) async {
+  Future.delayed(duration, () {
+    
+  },)
+  Timer.periodic(duration, callback)
+}
+
 // [⏰ 타이머 & 알람 프로그램 ⏰]
 
 
