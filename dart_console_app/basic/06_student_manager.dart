@@ -11,12 +11,7 @@ Future<void> main(List<String> arguments) async {
   print('저는 데이터 요정 데이티(Daty)예요. 오늘 어떤 데이터를 관리해 드릴까요?');
 
   while (true) {
-    print('1. 데이터 추가');
-    print('2. 데이터 검색');
-    print('3. 데이터 삭제');
-    print('4. 전체 데이터 보기');
-    print('5. 프로그램 종료');
-
+    menu();
     final command = getUserInput(['1', '2', '3', '4', '5']);
     switch (command) {
       case '1':
@@ -26,10 +21,10 @@ Future<void> main(List<String> arguments) async {
         dataSearch();
         break;
       case '3':
-        // datadelete();
+        datadelete();
         break;
       case '4':
-        // dataFullSearch();
+        dataFullSearch();
         break;
       default:
     }
@@ -41,6 +36,14 @@ Future<void> main(List<String> arguments) async {
       break;
     }
   }
+}
+
+void menu() {
+  print('1. 데이터 추가');
+  print('2. 데이터 검색');
+  print('3. 데이터 삭제');
+  print('4. 전체 데이터 보기');
+  print('5. 프로그램 종료');
 }
 
 void dataAdd() {
@@ -62,58 +65,64 @@ void dataAdd() {
     '좋아하는 동물': animal!,
   };
   data.add(userInfo);
-  // print(data);
 
   print('잠시만요... 데이터를 추가 중입니다...✨\n');
   print('[✅ 데이터 추가 완료 ✅]\n');
   print('현재 데이터 목록: ${data}');
-  print('더 추가하시겠어요? (Y/N):');
-  String? input = stdin.readLineSync();
-  if(input == 'Y'){
-    return dataAdd();
-  }else if (input == 'N'){
-    return;
-  }
-  else{
-    print('다시 입력해주세요\n');
-  }
+  askRestart();
 }
 
 void dataSearch() {
   print('[🔍 데이터 검색 🔍]');
   print('찾고 싶은 데이터를 입력하세요 (예시: 이름): 김똑똑');
   String? search = stdin.readLineSync();
-  if(data != search){
-    print('\n❌ 데이터가 없습니다 ❌\n');
-  }
 
   for (var i = 0; i < data.length; i++) {
     if (data[i]['이름'] == search) {
-  print('데이터를 검색 중입니다... 🧐\n');
+      print('데이터를 검색 중입니다... 🧐\n');
       print('[🎯 검색 결과 🎯] :\n');
       print(data[i]);
       print('\n데이터가 맞나요? 🎉\n');
+    } else if (data[i]['이름'] != search) {
+      print('\n❌ 데이터가 없습니다 ❌\n');
     }
-    
+    ;
   }
 }
 
-// void datadelete() {
-//   print('[🗑️ 데이터 삭제 🗑️]');
-//   print('삭제하고 싶은 데이터를 입력하세요 (예시: 이름): 이슬기');
-// //String? input = stdin.readLineSync();
-//   print('데이터를 삭제 중입니다... 💥');
-//   print('[✅ 데이터 삭제 완료 ✅]');
-//   print('현재 데이터 목록:');
-// //print(''); 결과값 보여줘야함
-//   print('삭제가 완료되었습니다! 👏');
-// }
+void datadelete() {
+  print('[🗑️ 데이터 삭제 🗑️]');
+  print('삭제하고 싶은 데이터를 입력하세요 (예시: 이름): 이슬기');
+  String? delete = stdin.readLineSync();
 
-// void dataFullSearch() {
-//   print('[📂 전체 데이터 보기 📂]');
-//   print('현재 저장된 데이터 목록입니다:');
-//   //print(''); 결과값 보여줘야함
-//   print('데이터가 정리되어 있어요! ✨');
-// }
+  for (var i = 0; i < data.length; i++) {
+    if (data[i]['이름'] == delete) {
+      print('데이터를 삭제 중입니다... 💥\n');
+      print('현재 데이터 목록');
+      data.removeWhere((i) => i['이름'] == delete);
+      print(data);
+    }
+  }
+  print('\n[✅ 데이터 삭제 완료 ✅]');
+  print('삭제가 완료되었습니다! 👏');
+}
 
+void dataFullSearch() {
+  print('[📂 전체 데이터 보기 📂]');
+  print('현재 저장된 데이터 목록입니다:');
+  print(data);
+  print('데이터가 정리되어 있어요! ✨');
+}
 
+askRestart() {
+  print('더 추가하시겠어요? (Y/N)');
+  String? input = stdin.readLineSync();
+  if (input == 'Y') {
+    return dataAdd();
+  } else if (input == 'N') {
+    return;
+  } else if (input != 'Y' || input != 'N') {
+    print('다시 입력해주세요\n');
+    return askRestart();
+  }
+}
