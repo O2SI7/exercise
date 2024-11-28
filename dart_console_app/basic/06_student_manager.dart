@@ -2,12 +2,17 @@ import 'dart:io';
 
 import '04_unit_convertor.dart';
 
-
-final Map<String, int> data = {};
+String? name, age, color, animal;
+List<Map<String, dynamic>> data = [
+  {
+    '이름': '$name',
+    '나이': '$age',
+    '좋아하는 색': '$color',
+    '좋아하는 동물': '$animal',
+  }
+];
 
 Future<void> main(List<String> arguments) async {
-
-
   print('[✨ 간단한 데이터 관리 프로그램 ✨]');
   print('안녕하세요! 당신만의 데이터 관리 프로그램에 오신 것을 환영합니다. 📋');
   print('저는 데이터 요정 데이티(Daty)예요. 오늘 어떤 데이터를 관리해 드릴까요?');
@@ -19,7 +24,13 @@ Future<void> main(List<String> arguments) async {
     print('4. 전체 데이터 보기');
     print('5. 프로그램 종료');
 
-    final command = getUserInput(['1', '2', '3', '4', '5',]);
+    final command = getUserInput([
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+    ]);
     switch (command) {
       case '1':
         dataAdd();
@@ -28,7 +39,7 @@ Future<void> main(List<String> arguments) async {
         dataSearch();
         break;
       case '3':
-        datadelete(); 
+        datadelete();
         break;
       case '4':
         dataFullSearch();
@@ -43,42 +54,24 @@ Future<void> main(List<String> arguments) async {
       break;
     }
   }
-
-
 }
 
-
-
-void dataAdd(){
-  // String? name, age, color, animal;
-
+void dataAdd() {
   print('[📌 데이터 추가 📌]');
   print('추가하고 싶은 데이터를 입력하세요');
   print('| 이름 | 나이 | 좋아하는 색깔 | 좋아하는 동물 |');
   String? input = stdin.readLineSync();
   //스페이스바 입력시 나가짐 수정
-  if(input == null || input.isEmpty){
+  if (input == null || input.isEmpty) {
     print('다시 입력해주세요\n');
     return dataAdd();
   }
-  
-
-  
-
 }
 
-void dataSearch(){
+void dataSearch() {}
 
-}
+void datadelete() {}
 
-void datadelete(){
+void dataFullSearch() {}
 
-}
-
-void dataFullSearch(){
-
-}
-
-void off(){
-
-}
+void off() {}
