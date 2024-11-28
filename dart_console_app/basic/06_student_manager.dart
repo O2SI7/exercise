@@ -55,40 +55,47 @@ void dataAdd() {
   print('| 좋아하는 동물 |');
   String? animal = stdin.readLineSync();
 
-  Map<String, String> a = {
+  Map<String, String> userInfo = {
     '이름': name!,
     '나이': age!,
     '좋아하는 색': color!,
     '좋아하는 동물': animal!,
   };
-  data.add(a);
-
-  print(data);
+  data.add(userInfo);
+  // print(data);
 
   print('잠시만요... 데이터를 추가 중입니다...✨\n');
-  print('[✅ 데이터 추가 완료 ✅]');
-  print('현재 데이터 목록: $data');
-  // print('$a');
-  print('더 추가하시겠어요? (Y:1/N:2):');
-
-  // 스페이스바 입력시 나가짐 수정
-  // if (input == null || input.isEmpty) {
-  //   print('다시 입력해주세요\n');
-  //   return;
-  // }
+  print('[✅ 데이터 추가 완료 ✅]\n');
+  print('현재 데이터 목록: ${data}');
+  print('더 추가하시겠어요? (Y/N):');
+  String? input = stdin.readLineSync();
+  if(input == 'Y'){
+    return dataAdd();
+  }else if (input == 'N'){
+    return;
+  }
+  else{
+    print('다시 입력해주세요\n');
+  }
 }
 
 void dataSearch() {
   print('[🔍 데이터 검색 🔍]');
   print('찾고 싶은 데이터를 입력하세요 (예시: 이름): 김똑똑');
-  String? input = stdin.readLineSync();
-  print('데이터를 검색 중입니다... 🧐\n');
-  if (data.contains(name) == input) {
-    print('dsfsadf');
+  String? search = stdin.readLineSync();
+  if(data != search){
+    print('\n❌ 데이터가 없습니다 ❌\n');
   }
-  print('[🎯 검색 결과 🎯]');
-  print(''); //결과값 보여줘야함
-  print('데이터가 맞나요? 🎉');
+
+  for (var i = 0; i < data.length; i++) {
+    if (data[i]['이름'] == search) {
+  print('데이터를 검색 중입니다... 🧐\n');
+      print('[🎯 검색 결과 🎯] :\n');
+      print(data[i]);
+      print('\n데이터가 맞나요? 🎉\n');
+    }
+    
+  }
 }
 
 // void datadelete() {
