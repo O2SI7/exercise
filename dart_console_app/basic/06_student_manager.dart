@@ -4,7 +4,6 @@ import '04_unit_convertor.dart';
 
 String? name, age, color, animal;
 List<Map<String, dynamic>> data = [];
-final Map<String, dynamic> user = {};
 
 Future<void> main(List<String> arguments) async {
   print('[✨ 간단한 데이터 관리 프로그램 ✨]');
@@ -24,7 +23,7 @@ Future<void> main(List<String> arguments) async {
         dataAdd();
         break;
       case '2':
-        // dataSearch();
+        dataSearch();
         break;
       case '3':
         // datadelete();
@@ -70,30 +69,27 @@ void dataAdd() {
   print('[✅ 데이터 추가 완료 ✅]');
   print('현재 데이터 목록: $data');
   // print('$a');
-  print('더 추가하시겠어요? (Y/N):');
-  String? input = stdin.readLineSync();
-  if(input == 'Y' ){
-    return dataAdd();
-  }else if(input == 'N' || data.isEmpty){
-    return;
-  }
+  print('더 추가하시겠어요? (Y:1/N:2):');
 
   // 스페이스바 입력시 나가짐 수정
-  if (input == null || input.isEmpty) {
-    print('다시 입력해주세요\n');
-    return;
-  }
+  // if (input == null || input.isEmpty) {
+  //   print('다시 입력해주세요\n');
+  //   return;
+  // }
 }
 
-// void dataSearch() {
-//   print('[🔍 데이터 검색 🔍]');
-//   print('찾고 싶은 데이터를 입력하세요 (예시: 이름): 김똑똑');
-// //String? input = stdin.readLineSync();
-//   print('데이터를 검색 중입니다... 🧐\n');
-//   print('[🎯 검색 결과 🎯]');
-// //print('');결과값 보여줘야함
-//   print('데이터가 맞나요? 🎉');
-// }
+void dataSearch() {
+  print('[🔍 데이터 검색 🔍]');
+  print('찾고 싶은 데이터를 입력하세요 (예시: 이름): 김똑똑');
+  String? input = stdin.readLineSync();
+  print('데이터를 검색 중입니다... 🧐\n');
+  if (data.contains(name) == input) {
+    print('dsfsadf');
+  }
+  print('[🎯 검색 결과 🎯]');
+  print(''); //결과값 보여줘야함
+  print('데이터가 맞나요? 🎉');
+}
 
 // void datadelete() {
 //   print('[🗑️ 데이터 삭제 🗑️]');
@@ -112,3 +108,5 @@ void dataAdd() {
 //   //print(''); 결과값 보여줘야함
 //   print('데이터가 정리되어 있어요! ✨');
 // }
+
+
