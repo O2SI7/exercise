@@ -3,37 +3,55 @@ import 'dart:io';
 import '04_unit_convertor.dart';
 
 String? name, age, color, animal;
-List<Map<String, dynamic>> data = [];
+List<UserInfo> data = [];
+
+class UserInfo {
+  UserInfo({
+    required this.name,
+    required this.age,
+    required this.color,
+    required this.animal,
+  });
+
+  final String name;
+  final String age;
+  final String color;
+  final String animal;
+
+  bool contains(String query) =>
+      name.contains(query) || age.contains(query) || color.contains(query) || animal.contains(query);
+}
 
 Future<void> main(List<String> arguments) async {
   print('[✨ 간단한 데이터 관리 프로그램 ✨]');
   print('안녕하세요! 당신만의 데이터 관리 프로그램에 오신 것을 환영합니다. 📋');
   print('저는 데이터 요정 데이티(Daty)예요. 오늘 어떤 데이터를 관리해 드릴까요?');
 
-  while (true) {
+  bool keepUsingIt = true;
+  while (keepUsingIt) {
     menu();
     final command = getUserInput(['1', '2', '3', '4', '5']);
     switch (command) {
       case '1':
-        dataAdd();
+        addData();
         break;
       case '2':
-        dataSearch();
+        searchData();
         break;
       case '3':
-        datadelete();
+        deleteData();
         break;
       case '4':
-        dataFullSearch();
+        listData();
+        break;
+      case '5':
+        print('[🚪 프로그램 종료 🚪]');
+        print('프로그램을 종료합니다. 오늘도 데이터 요정 데이티와 함께해 주셔서 감사합니다! 🌟');
+        print('다음에 또 뵈어요. 👋');
+
+        keepUsingIt = false;
         break;
       default:
-    }
-    if (command == '5') {
-      print('[🚪 프로그램 종료 🚪]');
-      print('프로그램을 종료합니다. 오늘도 데이터 요정 데이티와 함께해 주셔서 감사합니다! 🌟');
-      print('다음에 또 뵈어요. 👋');
-
-      break;
     }
   }
 }
@@ -46,83 +64,87 @@ void menu() {
   print('5. 프로그램 종료');
 }
 
-void dataAdd() {
+void addData() {
   print('[📌 데이터 추가 📌]');
-  print('추가하고 싶은 데이터를 입력하세요');
-  print('| 이름 |');
-  String? name = stdin.readLineSync();
-  print('| 나이|');
-  String? age = stdin.readLineSync();
-  print('| 좋아하는 색깔 |');
-  String? color = stdin.readLineSync();
-  print('| 좋아하는 동물 |');
-  String? animal = stdin.readLineSync();
+  print('추가하고 싶은 데이터를 입력하세요. 데이터 사이에 공백으로 구분합니다.');
+  print('| 이름 | 나이 | 좋아하는 색깔 | 좋아하는 동물 |');
 
-  Map<String, String> userInfo = {
-    '이름': name!,
-    '나이': age!,
-    '좋아하는 색': color!,
-    '좋아하는 동물': animal!,
-  };
-  data.add(userInfo);
+  String? userInput;
+  List<String> inputs = [];
+  do {
+    userInput = stdin.readLineSync()!;
+    inputs.addAll(userInput.split(' '));
+  } while (4 != userInput.length);
+
+  data.add(UserInfo(
+    name: inputs[0],
+    age: inputs[1],
+    color: inputs[2],
+    animal: inputs[3],
+  ));
 
   print('잠시만요... 데이터를 추가 중입니다...✨\n');
   print('[✅ 데이터 추가 완료 ✅]\n');
-  print('현재 데이터 목록: ${data}');
+  print('현재 데이터 목록: $data');
   askRestart();
 }
 
-void dataSearch() {
+void searchData() {
   print('[🔍 데이터 검색 🔍]');
-  print('찾고 싶은 데이터를 입력하세요 (예시: 이름): 김똑똑');
-  String? search = stdin.readLineSync();
+  print('찾고 싶은 데이터를 입력하세요');
+  String query = stdin.readLineSync()!;
 
-  for (var i = 0; i < data.length; i++) {
-    if (data[i]['이름'] == search) {
-      print('데이터를 검색 중입니다... 🧐\n');
+  for (final userInfo in data) {
+    if (userInfo.contains(query)) {
       print('[🎯 검색 결과 🎯] :\n');
-      print(data[i]);
+      print(userInfo);
       print('\n데이터가 맞나요? 🎉\n');
-    } else if (data[i]['이름'] != search) {
-      print('\n❌ 데이터가 없습니다 ❌\n');
+      return;
     }
-    ;
   }
+
+  print('\n❌ 데이터가 없습니다 : $query❌\n');
 }
 
-void datadelete() {
+void deleteData() {
   print('[🗑️ 데이터 삭제 🗑️]');
   print('삭제하고 싶은 데이터를 입력하세요 (예시: 이름): 이슬기');
-  String? delete = stdin.readLineSync();
+  String query = stdin.readLineSync()!;
+  print('데이터를 삭제 중입니다... 💥\n');
 
-  for (var i = 0; i < data.length; i++) {
-    if (data[i]['이름'] == delete) {
-      print('데이터를 삭제 중입니다... 💥\n');
-      print('현재 데이터 목록');
-      data.removeWhere((i) => i['이름'] == delete);
-      print(data);
+  for (final userInfo in data) {
+    if (userInfo.contains(query)) {
+      data.remove(userInfo);
+      print('\n[✅ 데이터 삭제 완료 ✅]');
+      return;
     }
   }
-  print('\n[✅ 데이터 삭제 완료 ✅]');
-  print('삭제가 완료되었습니다! 👏');
+
+  print('\n❌ 데이터가 없어서 삭제할 수 없습니다 : $query❌\n');
 }
 
-void dataFullSearch() {
+void listData() {
   print('[📂 전체 데이터 보기 📂]');
   print('현재 저장된 데이터 목록입니다:');
-  print(data);
+
+  for (final userInfo in data) {
+    print('이름 : ${userInfo.name}');
+    print('나이 : ${userInfo.age}');
+    print('좋아하는색 : ${userInfo.color}');
+    print('좋아하는동물 : ${userInfo.animal}');
+  }
+
   print('데이터가 정리되어 있어요! ✨');
 }
 
-askRestart() {
+void askRestart() {
   print('더 추가하시겠어요? (Y/N)');
   String? input = stdin.readLineSync();
+
   if (input == 'Y') {
-    return dataAdd();
-  } else if (input == 'N') {
-    return;
+    addData();
   } else if (input != 'Y' || input != 'N') {
     print('다시 입력해주세요\n');
-    return askRestart();
+    askRestart();
   }
 }
