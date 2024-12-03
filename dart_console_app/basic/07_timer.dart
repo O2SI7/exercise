@@ -85,7 +85,7 @@ Future<void> timerSetting() async {
       print('$i');
       await Future.delayed(Duration(seconds: 1));
     }
-   
+
     print('[딩동! $seconds초가 지났습니다. 🎉]\n');
     print('[⏰ 타이머 완료! ⏰]');
 
@@ -93,25 +93,25 @@ Future<void> timerSetting() async {
   }
 
   // Timer? qwe = Timer.periodic(
-    //   Duration(seconds: 1),
-    //   (timer) {
-    //     print(seconds + 1 - timer.tick);
-    //   },
-    // );
+  //   Duration(seconds: 1),
+  //   (timer) {
+  //     print(seconds + 1 - timer.tick);
+  //   },
+  // );
 
-    // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
-
+  // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
 }
 
 void alarmSettings() {
   print('[⏰ 알람 설정 ⏰]\n');
   print('알람을 설정할 시간을 입력하세요! (HH:MM 형식, 24시간제)\n');
-  final input = stdin.readLineSync();
-  final DateTime now = DateTime.now();
-  final DateFormat formatter = DateFormat('HH:MM');
-  final String formatted = formatter.format(now);
-
-
+  final input = int.parse(stdin.readLineSync()!);
+  print('입력한 시간 : $input:$input');
+  final d1 = Duration(hours: input, minutes: input);
+  // final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat(d1.toString());
+  // final String formatted = formatter.format(now);
+  print(formatter);
   print('[✅ 확인 완료] 알람이 설정되었습니다! 🎉\n');
   print('[- 알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊]\n');
 }
