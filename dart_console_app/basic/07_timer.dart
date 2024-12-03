@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:isolate';
-
+import 'package:intl/intl.dart';
 import '05.5_num_guess.dart';
 import '06_student_manager.dart';
 
@@ -82,47 +81,36 @@ Future<void> timerSetting() async {
   if (userChoice == 'Y') {
     print('타이머가 시작됩니다! 🎉');
 
-    // for (var i = seconds; i > 0; i--) {
-    //   print('$i');
-    //   await Future.delayed(Duration(seconds: 1));
-    // }
-    final String? input2 = stdin.readLineSync();
-    late final PausableTimer timer;
-    timer = PausableTimer.periodic(
-      Duration(seconds: 1),
-      () {
-        if (input2 == 'stop') {
-          timer.pause();
-        }
-        print(seconds + 1 - timer.tick);
-      },
-    )..start();
-    //   timer = PausableTimer.periodic(
-    //   Duration(seconds: 1),
-    //       () {
-    //     countDown--;
-
-    //     if (countDown == 0) {
-    //       timer.pause();
-    //     }
-
-    //     print('\t$countDown');
-    //   },
-    // )..start();
-    await Future.delayed(Duration(seconds: seconds), () {
-      timer.cancel();
-    });
+    for (var i = seconds; i > 0; i--) {
+      print('$i');
+      await Future.delayed(Duration(seconds: 1));
+    }
+   
     print('[딩동! $seconds초가 지났습니다. 🎉]\n');
     print('[⏰ 타이머 완료! ⏰]');
 
     await afterTimerMenu();
   }
+
+  // Timer? qwe = Timer.periodic(
+    //   Duration(seconds: 1),
+    //   (timer) {
+    //     print(seconds + 1 - timer.tick);
+    //   },
+    // );
+
+    // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
+
 }
 
 void alarmSettings() {
   print('[⏰ 알람 설정 ⏰]\n');
   print('알람을 설정할 시간을 입력하세요! (HH:MM 형식, 24시간제)\n');
-  final String? input = stdin.readLineSync();
+  final input = stdin.readLineSync();
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('HH:MM');
+  final String formatted = formatter.format(now);
+
 
   print('[✅ 확인 완료] 알람이 설정되었습니다! 🎉\n');
   print('[- 알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊]\n');
