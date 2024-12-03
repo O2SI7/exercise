@@ -107,8 +107,9 @@ void alarmSettings() {
   print('알람을 설정할 시간을 입력하세요! (HH:MM 형식, 24시간제)\n');
   final input = stdin.readLineSync();
   final DateTime now = DateTime.now();
+  now.copyWith(hour: 1,minute: 2);
   final DateFormat formatter = DateFormat('HH:MM');
-  final DateTime format = formatter.parseStrict(input);
+
 
   
 
