@@ -14,9 +14,8 @@ Future<void> main(List<String> arguments) async {
 
   bool keepUsingIt = true;
 
-    menu();
+  menu();
   while (keepUsingIt) {
-
     final command = getUserInput([/*'0',*/ '1', '2', '3']);
 
     switch (command) {
@@ -63,6 +62,7 @@ Future<void> afterTimerMenu() async {
     }
   }
 }
+
 Future<void> afterAlarmMenu() async {
   while (true) {
     print("\n다음 작업을 선택해주세요!");
@@ -77,9 +77,9 @@ Future<void> afterAlarmMenu() async {
     } else if (input == '2') {
       menu();
       break;
-    } else if (input == '3'){
+    } else if (input == '3') {
       break;
-    }else {
+    } else {
       print("잘못된 입력입니다. 다시 시도해주세요.");
     }
   }
@@ -123,7 +123,7 @@ Future<void> timerSetting() async {
   // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
 }
 
-void alarmSetting() {
+void alarmSetting() async {
   print('[⏰ 알람 설정 ⏰]\n');
   print('알람을 설정할 시간을 입력하세요! (HH:mm 형식, 24시간제)');
   final input = stdin.readLineSync()!;
@@ -139,23 +139,17 @@ void alarmSetting() {
     return;
   }
   print('입력한 시간: $h시 $m분');
+  final b = DateTime(now.year, now.month, now.day, h, m);
+  //await Future.delayed(Duration(hours: h ,minutes: m));
+  final z = b.difference(now);
+  print(z.inMinutes);
 
-//===================================================================
-  // final DateFormat formatter = DateFormat('hh:mm');
+  print('\n[✅ 확인 완료] 알람이 설정되었습니다! 🎉');
+  print('알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊\n');
 
-  // final DateTime parsedTime = formatter.parseStrict(input);
-  // final String formatted = formatter.format(parsedTime);
-  // now.copyWith(hour: 1,minute: 2);
-
-//===================================================================
-  // print('입력한 시간 : $input:$input');
-  // final d1 = Duration(hours: input, minutes: input);
-  // final String formatted = formatter.format(now);
-
-  print('\n[✅ 확인 완료] 알람이 설정되었습니다! 🎉\n');
-  print('[- 알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊]\n');
-
-  print(now);
+  print('[🔔 알람 알림 🔔]\n');
+  print('딩동! 지금은 ?시?분 입니다. ⏰');
+  print('일어나세요! 해야 할 일이 기다리고 있어요! 💪😊]');
 
   afterAlarmMenu();
 }
