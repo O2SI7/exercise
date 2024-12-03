@@ -19,10 +19,6 @@ Future<void> main(List<String> arguments) async {
     final command = getUserInput([/*'0',*/ '1', '2', '3']);
 
     switch (command) {
-      // case '0':
-      //   await asd();
-
-      //   break;
       case '1':
         await timerSetting();
         break;
@@ -33,7 +29,6 @@ Future<void> main(List<String> arguments) async {
         print('[🚪 프로그램 종료 🚪]\n');
         print('시간 요정 타이메리가 물러갑니다. 오늘도 시간을 잘 활용하셨나요? 🕒');
         print('다음에 또 만나요. 👋');
-
         keepUsingIt = false;
         break;
       default:
@@ -48,7 +43,7 @@ void menu() {
   print('\n원하시는 작업 번호를 입력하세요:');
 }
 
-void afterTimerMenu() {
+Future<void> afterTimerMenu() async {
   while (true) {
     print("\n다음 작업을 선택해주세요!");
     print("1. 다시 타이머 설정");
@@ -57,7 +52,7 @@ void afterTimerMenu() {
     String? input = stdin.readLineSync();
 
     if (input == '1') {
-      timerSetting();
+      await timerSetting();
       break;
     } else if (input == '2') {
       menu();
@@ -80,32 +75,37 @@ Future<void> timerSetting() async {
   print('입력한 시간 : $seconds\n');
 
   print('[💡 확인] $seconds초 타이머를 시작합니다. 준비되셨나요? (Y/N): \n');
-  final String? userChoice = stdin.readLineSync();
+  final String? userChoice = stdin.readLineSync()?.toUpperCase();
+
   if (userChoice == 'Y') {
     print('타이머가 시작됩니다! 🎉');
-    Timer? qwe = Timer.periodic(
-      Duration(seconds: 1),
-      (timer) {
-        print(seconds + 1 - timer.tick);
-      },
-    );
 
-    await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
-    
+    for (var i = seconds; i > 0; i--) {
+      print('$i');
+      await Future.delayed(Duration(seconds: 1));
+    }
+    // Timer? qwe = Timer.periodic(
+    //   Duration(seconds: 1),
+    //   (timer) {
+    //     print(seconds + 1 - timer.tick);
+    //   },
+    // );
+    // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
     print('[딩동! $seconds초가 지났습니다. 🎉]\n');
     print('[⏰ 타이머 완료! ⏰]');
-    
-    afterTimerMenu();
+
+    await afterTimerMenu();
   }
-  
 }
 
+void alarmSettings() {
+  print('[⏰ 알람 설정 ⏰]\n');
+  print('알람을 설정할 시간을 입력하세요! (HH:MM 형식, 24시간제)\n');
+  final String? input = stdin.readLineSync();
 
-
-
-
-
-void alarmSettings() {}
+  print('[✅ 확인 완료] 알람이 설정되었습니다! 🎉\n');
+  print('[- 알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊]\n');
+}
 
 String getUserInput(List<String> allowCommandList) {
   String? command;
@@ -118,5 +118,3 @@ String getUserInput(List<String> allowCommandList) {
 
   return command!;
 }
-
-
