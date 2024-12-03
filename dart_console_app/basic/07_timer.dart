@@ -105,13 +105,18 @@ Future<void> timerSetting() async {
 void alarmSettings() {
   print('[⏰ 알람 설정 ⏰]\n');
   print('알람을 설정할 시간을 입력하세요! (HH:MM 형식, 24시간제)\n');
-  final input = int.parse(stdin.readLineSync()!);
-  print('입력한 시간 : $input:$input');
-  final d1 = Duration(hours: input, minutes: input);
-  // final DateTime now = DateTime.now();
-  final DateFormat formatter = DateFormat(d1.toString());
+  final input = stdin.readLineSync();
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('HH:MM');
+  final DateTime format = formatter.parseStrict(input);
+
+  
+
+  // print('입력한 시간 : $input:$input');
+  // final d1 = Duration(hours: input, minutes: input);
   // final String formatted = formatter.format(now);
-  print(formatter);
+
+
   print('[✅ 확인 완료] 알람이 설정되었습니다! 🎉\n');
   print('[- 알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊]\n');
 }
