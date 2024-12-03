@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:intl/date_symbols.dart';
 import 'package:intl/intl.dart';
 import '05.5_num_guess.dart';
 import '06_student_manager.dart';
@@ -23,7 +24,7 @@ Future<void> main(List<String> arguments) async {
         await timerSetting();
         break;
       case '2':
-        alarmSetting();
+        await alarmSetting();
         break;
       case '3':
         print('[🚪 프로그램 종료 🚪]\n');
@@ -123,11 +124,10 @@ Future<void> timerSetting() async {
   // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
 }
 
-void alarmSetting() async {
+Future<void> alarmSetting() async {
   print('[⏰ 알람 설정 ⏰]\n');
   print('알람을 설정할 시간을 입력하세요! (HH:mm 형식, 24시간제)');
   final input = stdin.readLineSync()!;
-  final DateTime now = DateTime.now();
   final hMin = input.split(' ');
 
   final h = int.parse(hMin[0]);
@@ -139,19 +139,26 @@ void alarmSetting() async {
     return;
   }
   print('입력한 시간: $h시 $m분');
-  final b = DateTime(now.year, now.month, now.day, h, m);
-  //await Future.delayed(Duration(hours: h ,minutes: m));
-  final z = b.difference(now);
-  print(z.inMinutes);
 
   print('\n[✅ 확인 완료] 알람이 설정되었습니다! 🎉');
   print('알람이 울리면 당신께 알려드릴게요. 잊지 말고 기다려 주세요! 😊\n');
+  final DateTime now = DateTime.now();
+  final inputTime = DateTime(now.year, now.month, now.day, h, m);
+  final z = inputTime.difference(now).inSeconds;
 
+  print('⏰ $z초 뒤 알람울림 ⏰'); //설정한 시간과 현재시간의 차이 (초)
+
+
+  await Future.delayed(Duration(seconds: z),(){
+    
   print('[🔔 알람 알림 🔔]\n');
-  print('딩동! 지금은 ?시?분 입니다. ⏰');
+  print('딩동! 지금은 $h시$m분 입니다. ⏰');
   print('일어나세요! 해야 할 일이 기다리고 있어요! 💪😊]');
 
   afterAlarmMenu();
+  });
+  
+
 }
 
 String getUserInput(List<String> allowCommandList) {
