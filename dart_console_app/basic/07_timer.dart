@@ -5,6 +5,8 @@ import 'dart:isolate';
 import '05.5_num_guess.dart';
 import '06_student_manager.dart';
 
+import 'package:pausable_timer/pausable_timer.dart';
+
 //async,await 한 쌍사용
 //await 붙은작업은 해당작업이 끝날때까지 기다렸다가 시작
 
@@ -80,17 +82,36 @@ Future<void> timerSetting() async {
   if (userChoice == 'Y') {
     print('타이머가 시작됩니다! 🎉');
 
-    for (var i = seconds; i > 0; i--) {
-      print('$i');
-      await Future.delayed(Duration(seconds: 1));
-    }
-    // Timer? qwe = Timer.periodic(
+    // for (var i = seconds; i > 0; i--) {
+    //   print('$i');
+    //   await Future.delayed(Duration(seconds: 1));
+    // }
+    final String? input2 = stdin.readLineSync();
+    late final PausableTimer timer;
+    timer = PausableTimer.periodic(
+      Duration(seconds: 1),
+      () {
+        if (input2 == 'stop') {
+          timer.pause();
+        }
+        print(seconds + 1 - timer.tick);
+      },
+    )..start();
+    //   timer = PausableTimer.periodic(
     //   Duration(seconds: 1),
-    //   (timer) {
-    //     print(seconds + 1 - timer.tick);
+    //       () {
+    //     countDown--;
+
+    //     if (countDown == 0) {
+    //       timer.pause();
+    //     }
+
+    //     print('\t$countDown');
     //   },
-    // );
-    // await Future.delayed(Duration(seconds: seconds), () {qwe.cancel();});
+    // )..start();
+    await Future.delayed(Duration(seconds: seconds), () {
+      timer.cancel();
+    });
     print('[딩동! $seconds초가 지났습니다. 🎉]\n');
     print('[⏰ 타이머 완료! ⏰]');
 
