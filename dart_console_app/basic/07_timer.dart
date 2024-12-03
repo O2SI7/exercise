@@ -48,6 +48,26 @@ void menu() {
   print('\n원하시는 작업 번호를 입력하세요:');
 }
 
+void afterTimerMenu() {
+  while (true) {
+    print("\n다음 작업을 선택해주세요!");
+    print("1. 다시 타이머 설정");
+    print("2. 메인 메뉴로 돌아가기");
+    print("작업 번호를 입력하세요: ");
+    String? input = stdin.readLineSync();
+
+    if (input == '1') {
+      timerSetting();
+      break;
+    } else if (input == '2') {
+      menu();
+      break;
+    } else {
+      print("잘못된 입력입니다. 다시 시도해주세요.");
+    }
+  }
+}
+
 Future<void> timerSetting() async {
   print('타이머 시간을 입력하세요!');
   final String? input = stdin.readLineSync();
@@ -75,9 +95,12 @@ Future<void> timerSetting() async {
     print('[딩동! $seconds초가 지났습니다. 🎉]\n');
     print('[⏰ 타이머 완료! ⏰]');
     
+    afterTimerMenu();
   }
   
 }
+
+
 
 
 
