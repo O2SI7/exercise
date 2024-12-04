@@ -78,7 +78,20 @@ gameRule() {
 }
 
 rps() {
-  int monsterRattack = 50 + Random().nextInt(51);
+  String? userInput = stdin.readLineSync(); // > 유저 가위바위보 값
+  int? choice = int.tryParse(userInput ?? ''); 
+  
+  int mInput = Random().nextInt(3) + 1; //-> 컴퓨터 가위바위보 랜덤값 > 1,2,3
+
+  
+
+  if (choice == mInput) /*비겻*/ {
+
+  } else if (choice! > mInput) /*이겼을때*/ {
+
+  } else if (choice! < mInput) /*졌을때*/ {
+
+  }
 }
 
 String getUserInput(List<String> allowCommandList) {
