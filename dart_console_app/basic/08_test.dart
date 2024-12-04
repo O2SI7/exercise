@@ -32,7 +32,6 @@ void main(List<String> arguments) {
         break;
       case '2':
         showDescription();
-
         break;
       case '3':
         print('[🚪 프로그램 종료 🚪]\n');
@@ -83,28 +82,23 @@ void showMenu() {
   print('\n원하시는 작업 번호를 입력하세요:');
 }
 
-void battle() {
-  print('\n[⚔️ 전투 시작 ⚔️]');
-  print('다음 행동을 선택하세요');
-  print('1. 가위\n2. 바위\n3. 보');
-  String? userChoice = stdin.readLineSync(); // > 유저 가위바위보 값
-  int? choice = int.tryParse(userChoice ?? '');
-  final monsterChoice = Random().nextInt(3) + 1;
-  print("몬스터 선택 : $monsterChoice");
+battle() {
+  bool dkdkdk = true;
+  while (dkdkdk) {
+    print('\n[⚔️ 전투 시작 ⚔️]');
+    print('다음 행동을 선택하세요');
+    print('1. 가위\n2. 바위\n3. 보');
+    String? userChoice = stdin.readLineSync(); // > 유저 가위바위보 값
+    int? choice = int.tryParse(userChoice ?? '');
 
-  int victory = 0;
-  bool reselt = true;
-
-  while (reselt) {
-    if (monster.hp <= 0) {
-      print('전투 승리');
-      victory++;
-      break;
-    } else if (user.hp <= 0) {
-      print('너죽음 ㅅㄱ');
-      reselt = false;
-      break;
+    if (choice == null || choice < 1 || choice > 3) {
+      print('다시 입력해주세요. (1, 2, 3) ');
+      continue;
     }
+
+    final monsterChoice = Random().nextInt(3) + 1;
+    print("몬스터 선택 : $monsterChoice");
+
     if ((choice == 1 && monsterChoice == 3) ||
         (choice == 2 && monsterChoice == 1) ||
         (choice == 3 && monsterChoice == 2)) {
@@ -114,7 +108,32 @@ void battle() {
     } else {
       mattack();
     }
+    if (monster.hp <= 0) {
+      print('전투 승리');
+
+      victory++;
+      print('키햐ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ이겼다$victory');
+      if (victory >= 3) {
+        print('키햐ㅑㅑㅑㅑ 잘한다잉 ㅊㅋㅊㅋ 졸업');
+        gameReset();
+        break;
+      }
+      break;
+    } else if (user.hp <= 0) {
+      print('너죽음 ㅅㄱ');
+      gameReset();
+      break;
+    }
   }
+  showMenu();
+}
+
+void gameReset() {
+  // Ouser.hp = 100;
+  user = Info(100, 20);
+  monster.hp = 50 + Random().nextInt(51);
+  monster.attack = 5 + Random().nextInt(11);
+  victory = 0;
 }
 
 attack() {
