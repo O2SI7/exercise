@@ -6,7 +6,7 @@ int main() {
   showMenu();
 
   while (stay) {
-    final command = getUserInput([/*'0',*/ '1', '2', '3']);
+    final command = getUserInput(['1', '2', '3']);
 
     switch (command) {
       case '1':
@@ -44,10 +44,12 @@ bool startGame() {
     startRound();
   }
 
-  return gamkeResult();
+  return gameResult();
 }
 
-bool gamkeResult() {}
+bool gameResult() {
+  return true;
+}
 
 enum RoundResult {
   win,
