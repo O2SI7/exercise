@@ -11,6 +11,9 @@ class Info {
 Info user = Info(100, 20);
 int victory = 0;
 
+int monsterHp = 50 + Random().nextInt(51);
+int monsterAttack = 5 + Random().nextInt(11);
+
 int main() {
   bool stay = true;
   print('[✨  가위 바위 보의 제왕 게임 ✨]');
@@ -50,10 +53,9 @@ int main() {
   return 0;
 }
 
+
 bool startGame() {
   print('[⚔️ 몬스터 등장!]');
-  int monsterHp = 50 + Random().nextInt(51);
-  int monsterAttack = 5 + Random().nextInt(11);
 
   print('- 몬스터 정보');
   print('- 체력: $monsterHp');
@@ -61,9 +63,6 @@ bool startGame() {
   print('\n[💪당신의 상태]');
   print('- 체력: ${user.hp}');
   print('- 공격: ${user.attack}');
-
-  print('\n[⚔️ 전투 시작 ⚔️]');
-  print('다음 행동을 선택하세요');
 
   // while(/**죽을때까지 || 3번 이길때까지*/)
   while (isEndCondition()) {
@@ -85,13 +84,11 @@ bool gameResult() {
   return true;
 }
 
-enum RoundResult {
-  win,
-  draw,
-  lose,
-}
-
 void startRound() {
+  print('\n[⚔️ 전투 시작 ⚔️]');
+  print('다음 행동을 선택하세요');
+  print('1. 가위\n2. 바위\n3. 보');
+
   String? userChoice = stdin.readLineSync(); // > 유저 가위바위보 값
   int? choice = int.tryParse(userChoice ?? '');
   final monsterChoice = getMonsterChoice();
@@ -99,17 +96,58 @@ void startRound() {
   battle(choice, monsterChoice);
 }
 
-battle(int? choice, monsterChoice) {
-  final roundResult = battle(choice, monsterChoice);
+enum RoundResult {
+  win,
+  draw,
+  lose,
+}
 
-  if (roundResult == RoundResult.win) {
-    print('[⚔️ 공격 성공!](이김)');
-  } else if (roundResult == RoundResult.draw) {
-    print('[🛡️ 방어 성공!] (비김)');
-  } else /** if(roundResult == BattleResult.lose) */
-  {
-    print('[🛡️ 방어 실패!] (짐)');
+// 1 가위 2 바위 3 보
+battle(int? choice, monsterChoice) {
+  if ((choice == 1 && monsterChoice == 3) ||
+      (choice == 2 && monsterChoice == 1) ||
+      (choice == 3 && monsterChoice == 2)) {
+    return attack();
+  } else if (choice == monsterChoice) {
+    defend();
+  } else {
+    mattack();
   }
+  if (user.hp <= 0) {
+    isEndCondition();
+    print('너죽었음');
+  }
+  // if (roundResult == RoundResult.win) {
+  //   print('[⚔️ 공격 성공!](이김)');
+  // } else if (roundResult == RoundResult.draw) {
+  //   print('[🛡️ 방어 성공!] (비김)');
+  // } else /** if(roundResult == BattleResult.lose) */
+  // {
+  //   print('[🛡️ 방어 실패!] (짐)');
+  // }
+}
+
+attack() {
+  print('몬스터 체력 : $monsterHp');
+  print('유저 공격력 : ${user.attack}');
+
+  monsterHp - user.attack;
+
+  print('몬스터의 남은체력 : $monsterHp');
+}
+
+defend() {
+  print('빗나감');
+  print('몬스터의 남은체력 : $monsterHp');
+}
+
+mattack() {
+  print('유저 체력 : ${user.hp}');
+  print('몬스터 공격력 : $monsterAttack');
+
+  user.hp - monsterAttack;
+
+  print('유저 남은체력 : ${user.hp}');
 }
 
 getMonsterChoice() {
