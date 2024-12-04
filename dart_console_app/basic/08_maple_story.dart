@@ -103,7 +103,6 @@ battle(int? choice, monsterChoice) {
   final roundResult = battle(choice, monsterChoice);
 
   if (roundResult == RoundResult.win) {
-    victory++;
     print('[⚔️ 공격 성공!](이김)');
   } else if (roundResult == RoundResult.draw) {
     print('[🛡️ 방어 성공!] (비김)');
@@ -114,7 +113,7 @@ battle(int? choice, monsterChoice) {
 }
 
 getMonsterChoice() {
-  int mInput = Random().nextInt(3) + 1;
+  return Random().nextInt(3) + 1;
 }
 
 void showDescription() {
