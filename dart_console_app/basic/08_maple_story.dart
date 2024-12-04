@@ -2,11 +2,14 @@ import 'dart:io';
 import 'dart:math';
 
 class Info {
-  int? hp;
-  int? attack;
+  int hp;
+  int attack;
 
   Info(this.hp, this.attack);
 }
+
+Info user = Info(100, 20);
+int victory = 0;
 
 int main() {
   bool stay = true;
@@ -51,7 +54,7 @@ bool startGame() {
   print('[⚔️ 몬스터 등장!]');
   int monsterHp = 50 + Random().nextInt(51);
   int monsterAttack = 5 + Random().nextInt(11);
-  Info user = Info(100, 20);
+
   print('- 몬스터 정보');
   print('- 체력: $monsterHp');
   print('- 공격: $monsterAttack');
@@ -70,6 +73,14 @@ bool startGame() {
   return gameResult();
 }
 
+bool isEndCondition() {
+  if (user.hp <= 0 || victory >= 3) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 bool gameResult() {
   return true;
 }
@@ -81,12 +92,18 @@ enum RoundResult {
 }
 
 void startRound() {
-  final userChoice = getUserInput(['', '', '']);
+  String? userChoice = stdin.readLineSync(); // > 유저 가위바위보 값
+  int? choice = int.tryParse(userChoice ?? '');
   final monsterChoice = getMonsterChoice();
 
-  final roundResult = battle(userChoice, monsterChoice);
+  battle(choice, monsterChoice);
+}
+
+battle(int? choice, monsterChoice) {
+  final roundResult = battle(choice, monsterChoice);
 
   if (roundResult == RoundResult.win) {
+    victory++;
     print('[⚔️ 공격 성공!](이김)');
   } else if (roundResult == RoundResult.draw) {
     print('[🛡️ 방어 성공!] (비김)');
@@ -96,13 +113,9 @@ void startRound() {
   }
 }
 
-battle(String userChoice, monsterChoice) {}
-
 getMonsterChoice() {
   int mInput = Random().nextInt(3) + 1;
 }
-
-bool isEndCondition() {}
 
 void showDescription() {
   print('[📜 게임 설명 📜]');
